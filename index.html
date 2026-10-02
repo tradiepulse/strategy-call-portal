@@ -88,6 +88,17 @@
   .vp-t { font-size: 14px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
   .vp-d { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
 
+  .ad-stack { display: flex; flex-direction: column; gap: 8px; margin-bottom: 24px; }
+  .ad-acc { --c: #16a34a; background: var(--dark3); border: 1px solid var(--border); border-left: 3px solid var(--c); border-radius: 10px; }
+  .ad-acc > summary { list-style: none; display: flex; align-items: center; gap: 12px; padding: 14px 18px; cursor: pointer; }
+  .ad-acc > summary::-webkit-details-marker { display: none; }
+  .ad-ico { width: 30px; height: 30px; border-radius: 6px; background: color-mix(in srgb, var(--c) 18%, transparent); display: flex; align-items: center; justify-content: center; font-size: 15px; }
+  .ad-name { flex: 1; font-size: 14px; font-weight: 700; color: #fff; }
+  .ad-chev { font-size: 22px; font-weight: 300; color: var(--c); transition: transform 0.2s; }
+  .ad-acc[open] .ad-chev { transform: rotate(45deg); }
+  .ad-acc[open] { border-color: var(--c); }
+  .ad-body { padding: 0 18px 16px 60px; }
+
   /* ── Our System page: no header / sidebar ── */
   .slide-sidebar { display: none !important; }
   #slide.system-only .slide-header { display: none; }
@@ -1104,115 +1115,43 @@ function showSlide(key) {
 
       <!-- AD TYPES -->
       <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">AD CREATIVE TYPES</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🎯</div>
-            <div style="font-size:12px;font-weight:700;color:#fff">Direct Response</div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">Problem → Solution → CTA. Calls out a specific pain point and offers a clear next step. Best for urgent homeowner problems and tight service areas.</div>
-          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Sick of chasing quotes? Get a fixed-price deck in 7 days."</div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #60a5fa">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:28px;height:28px;border-radius:6px;background:rgba(96,165,250,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🏆</div>
-            <div style="font-size:12px;font-weight:700;color:#fff">Showcase</div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">Quality work front and centre. Hero shots, finished projects, team on-site. Sells the outcome, not the process. Great for premium positioning and higher-value clients.</div>
-          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Here's what we built last week in Mosman."</div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #f59e0b">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:28px;height:28px;border-radius:6px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🔄</div>
-            <div style="font-size:12px;font-weight:700;color:#fff">Before & After</div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">Visual transformation in one scroll-stop frame. One of the highest-converting formats for tradies - homeowners instantly picture their own project and what's possible.</div>
-          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Left: cracked patio. Right: exposed aggregate masterpiece."</div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #a78bfa">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:28px;height:28px;border-radius:6px;background:rgba(167,139,250,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">⭐</div>
-            <div style="font-size:12px;font-weight:700;color:#fff">Testimonials</div>
-          </div>
-          <div style="font-size:11px;color:var(--muted);line-height:1.5">Let happy clients do the talking. Builds instant trust and social proof. Works as video testimonial, quote card, or text overlay on a finished project photo.</div>
-          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"3 quotes, yours was the only one who showed up on time."</div>
-        </div>
-
+      <div class="ad-stack">
+        <details class="ad-acc" style="--c:#16a34a">
+          <summary><span class="ad-ico">🎯</span><span class="ad-name">Direct Response</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="font-size:12px;color:var(--muted);line-height:1.6">Problem → Solution → CTA. Calls out a specific pain point and offers a clear next step. Best for urgent homeowner problems and tight service areas.</div><div style="margin-top:8px;font-size:11px;color:#6b7280;font-style:italic">"Sick of chasing quotes? Get a fixed-price deck in 7 days."</div></div>
+        </details>
+        <details class="ad-acc" style="--c:#60a5fa">
+          <summary><span class="ad-ico">🏆</span><span class="ad-name">Showcase</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="font-size:12px;color:var(--muted);line-height:1.6">Quality work front and centre. Hero shots, finished projects, team on-site. Sells the outcome, not the process. Great for premium positioning and higher-value clients.</div><div style="margin-top:8px;font-size:11px;color:#6b7280;font-style:italic">"Here's what we built last week in Mosman."</div></div>
+        </details>
+        <details class="ad-acc" style="--c:#f59e0b">
+          <summary><span class="ad-ico">🔄</span><span class="ad-name">Before &amp; After</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="font-size:12px;color:var(--muted);line-height:1.6">Visual transformation in one scroll-stop frame. One of the highest-converting formats for tradies - homeowners instantly picture their own project and what's possible.</div><div style="margin-top:8px;font-size:11px;color:#6b7280;font-style:italic">"Left: cracked patio. Right: exposed aggregate masterpiece."</div></div>
+        </details>
+        <details class="ad-acc" style="--c:#a78bfa">
+          <summary><span class="ad-ico">⭐</span><span class="ad-name">Testimonials</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="font-size:12px;color:var(--muted);line-height:1.6">Let happy clients do the talking. Builds instant trust and social proof. Works as video testimonial, quote card, or text overlay on a finished project photo.</div><div style="margin-top:8px;font-size:11px;color:#6b7280;font-style:italic">"3 quotes, yours was the only one who showed up on time."</div></div>
+        </details>
       </div>
 
       <!-- AD FORMATS -->
       <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">AD FORMATS</div>
-      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px">
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
-          <div style="text-align:center;margin-bottom:10px">
-            <div style="font-size:24px;margin-bottom:4px">🖼</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Static</div>
-          </div>
-          <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
-          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Fast & cheap to produce</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Easy to A/B test</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Great for direct offers</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Low barrier to start</div>
-          </div>
-          <div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:5px">CONS</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:10.5px;color:#9ca3af">✕ Lower engagement</div>
-            <div style="font-size:10.5px;color:#9ca3af">✕ Limited storytelling</div>
-            <div style="font-size:10.5px;color:#9ca3af">✕ Scrolled past quickly</div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid rgba(96,165,250,0.25);border-radius:10px;padding:14px 16px">
-          <div style="text-align:center;margin-bottom:10px">
-            <div style="font-size:24px;margin-bottom:4px">🎴</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Carousel</div>
-          </div>
-          <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
-          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Multiple projects in one ad</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Swipe = high engagement</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Perfect for before/afters</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Tells a story across cards</div>
-          </div>
-          <div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:5px">CONS</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:10.5px;color:#9ca3af">✕ Needs 5+ quality images</div>
-            <div style="font-size:10.5px;color:#9ca3af">✕ More complex to design</div>
-            <div style="font-size:10.5px;color:#9ca3af">✕ Varied mobile experience</div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid rgba(249,115,22,0.25);border-radius:10px;padding:14px 16px">
-          <div style="text-align:center;margin-bottom:10px">
-            <div style="font-size:24px;margin-bottom:4px">🎬</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Video</div>
-          </div>
-          <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
-          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Highest engagement rate</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Builds trust fastest</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Dominates Reels & Stories</div>
-            <div style="font-size:10.5px;color:#e5e7eb">✓ Shows work & personality</div>
-          </div>
-          <div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:5px">CONS</div>
-          <div style="display:flex;flex-direction:column;gap:3px">
-            <div style="font-size:10.5px;color:#9ca3af">✕ Expensive to produce</div>
-            <div style="font-size:10.5px;color:#9ca3af">✕ Slower to test & iterate</div>
-            <div style="font-size:10.5px;color:#9ca3af">✕ Needs a strong 3-sec hook</div>
-          </div>
-        </div>
-
+      <div class="ad-stack">
+        <details class="ad-acc" style="--c:#16a34a">
+          <summary><span class="ad-ico">🖼</span><span class="ad-name">Static</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px"><div><div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:6px">PROS</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Fast &amp; cheap to produce</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Easy to A/B test</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Great for direct offers</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Low barrier to start</div></div><div><div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:6px">CONS</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Lower engagement</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Limited storytelling</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Scrolled past quickly</div></div></div></div>
+        </details>
+        <details class="ad-acc" style="--c:#60a5fa">
+          <summary><span class="ad-ico">🎴</span><span class="ad-name">Carousel</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px"><div><div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:6px">PROS</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Multiple projects in one ad</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Swipe = high engagement</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Perfect for before/afters</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Tells a story across cards</div></div><div><div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:6px">CONS</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Needs 5+ quality images</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ More complex to design</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Varied mobile experience</div></div></div></div>
+        </details>
+        <details class="ad-acc" style="--c:#f97316">
+          <summary><span class="ad-ico">🎬</span><span class="ad-name">Video</span><span class="ad-chev">+</span></summary>
+          <div class="ad-body"><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px"><div><div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:6px">PROS</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Highest engagement rate</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Builds trust fastest</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Dominates Reels &amp; Stories</div><div style="font-size:12px;color:#e5e7eb;margin-bottom:3px">✓ Shows work &amp; personality</div></div><div><div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:6px">CONS</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Expensive to produce</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Slower to test &amp; iterate</div><div style="font-size:12px;color:#9ca3af;margin-bottom:3px">✕ Needs a strong 3-sec hook</div></div></div></div>
+        </details>
       </div>
 
-      <!-- CLIENT EXAMPLES -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-top:8px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(31,138,99,0.2)">CLIENT EXAMPLES</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:14px">Real ads built for active clients - video &amp; static creative.</div>
+      <!-- AD EXAMPLES -->
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:24px">
         <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)">
           <div style="position:relative;aspect-ratio:4/5;background:#000"><iframe src="https://drive.google.com/file/d/1_hyGARGByCSQm3OuVYQlWFTY6Y-NCK3O/preview" allow="autoplay" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;display:block"></iframe></div>

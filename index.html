@@ -1,0 +1,1648 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tradie Pulse - Strategy Call</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --green: #16A34A;
+    --green-light: #4ade80;
+    --dark: #0d1117;
+    --dark2: #111827;
+    --dark3: #1f2937;
+    --dark4: #374151;
+    --text: #f9fafb;
+    --muted: #9ca3af;
+    --border: #1f2937;
+  }
+
+  html, body {
+    width: 100%; height: 100%;
+    background: var(--dark);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    overflow: hidden;
+    user-select: none;
+  }
+
+  /* ── AD IDEAS TILE ── */
+  .tile.teal { border-color: #0d9488; }
+  .tile.teal:hover { border-color: #2dd4bf; background: rgba(13,148,136,0.08); }
+  .tile.teal::before { background: #14b8a6; }
+  .tile.teal .tile-icon { background: rgba(13,148,136,0.12); }
+  .tile.teal .tile-icon svg { stroke: #2dd4bf; }
+
+  /* ── PURPLE / HANDOVER TILE ── */
+  .tile.purple { border-color: #7c3aed; }
+  .tile.purple:hover { border-color: #a78bfa; background: rgba(124,58,237,0.1); }
+  .tile.purple .tile-icon svg { stroke: #a78bfa; }
+  .tile.purple .tile-name { color: #f5f3ff; }
+
+  /* ── ACCORDION SECTIONS ── */
+  details.sys-acc { border-top: 1px solid rgba(255,255,255,0.07); margin-top: 0; }
+  details.sys-acc > summary {
+    font-size: 10px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase;
+    color: var(--muted); padding: 10px 0; display: flex; align-items: center; gap: 6px;
+    cursor: pointer; list-style: none; user-select: none;
+  }
+  details.sys-acc > summary::-webkit-details-marker { display: none; }
+  details.sys-acc > summary .acc-arrow { margin-left: auto; font-size: 12px; opacity: 0.4; transition: transform 0.15s; display: inline-block; }
+  details.sys-acc[open] > summary .acc-arrow { transform: rotate(90deg); }
+  details.sys-acc > summary:hover { color: #e5e7eb; }
+  details.sys-acc > .acc-body { padding-bottom: 6px; }
+
+  /* ── SKOOL TILE ── */
+  .tile.skool { border-color: #7c3aed; }
+  .tile.skool:hover { border-color: #a78bfa; background: rgba(124,58,237,0.08); }
+  .tile.skool::before { background: #a855f7; }
+  .tile.skool .tile-icon { background: rgba(124,58,237,0.12); }
+  .tile.skool .tile-icon svg { stroke: #c084fc; }
+
+  /* ── HANDOVER MODAL ── */
+  .handover-box {
+    background: var(--dark2);
+    border: 1px solid #7c3aed;
+    border-radius: 16px;
+    padding: 28px 32px;
+    width: 92%;
+    max-width: 760px;
+    max-height: 88vh;
+    overflow-y: auto;
+    position: relative;
+    scrollbar-width: thin;
+    scrollbar-color: #374151 transparent;
+  }
+  .handover-box::-webkit-scrollbar { width: 6px; }
+  .handover-box::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
+  .ho-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #f5f3ff; margin-bottom: 4px; }
+  .ho-subtitle { font-size: 12px; color: #9ca3af; margin-bottom: 24px; }
+  .ho-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+  .ho-full { grid-column: 1 / -1; }
+  .ho-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #a78bfa; margin: 18px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(124,58,237,0.25); }
+  .ho-field label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; margin-bottom: 5px; }
+  .ho-field input, .ho-field select, .ho-field textarea {
+    width: 100%; background: #0d1117; border: 1px solid #374151; border-radius: 8px;
+    padding: 9px 12px; font-size: 13px; color: #f9fafb; font-family: 'Inter', sans-serif;
+    outline: none; transition: border-color 0.15s;
+  }
+  .ho-field input:focus, .ho-field select:focus, .ho-field textarea:focus { border-color: #7c3aed; }
+  .ho-field textarea { resize: vertical; min-height: 60px; }
+  .ho-field select option { background: #1f2937; }
+  .ho-toggle-row { display: flex; gap: 8px; }
+  .ho-toggle {
+    flex: 1; background: #1f2937; border: 2px solid #374151; border-radius: 8px;
+    padding: 8px 12px; font-size: 12px; font-weight: 700; color: #9ca3af;
+    cursor: pointer; text-align: center; transition: all 0.15s; user-select: none;
+  }
+  .ho-toggle:hover { border-color: #7c3aed; color: #c4b5fd; }
+  .ho-toggle.yes { border-color: #16A34A; background: rgba(22,163,74,0.1); color: #4ade80; }
+  .ho-toggle.no { border-color: #ef4444; background: rgba(239,68,68,0.08); color: #fca5a5; }
+  .ho-divider { height: 1px; background: #1f2937; margin: 20px 0; }
+  .ho-copy-btn {
+    width: 100%; background: #7c3aed; color: #fff; border: none; border-radius: 10px;
+    padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 20px;
+    transition: all 0.15s; letter-spacing: 0.3px;
+  }
+  .ho-copy-btn:hover { background: #6d28d9; }
+  .ho-copy-btn.copied { background: #16A34A !important; }
+
+  /* ── HOME SCREEN ── */
+  #home {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column;
+  }
+
+  .home-header {
+    background: var(--dark2);
+    border-bottom: 2px solid var(--green);
+    padding: 18px 48px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .home-logo { display: flex; align-items: center; gap: 12px; }
+  .logo-box { width: 38px; height: 38px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .logo-box svg { width: 22px; height: 22px; }
+  .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text); letter-spacing: 1px; }
+  .logo-name span { color: var(--green); }
+
+  .home-meta { text-align: right; }
+  .home-meta-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+  .home-meta-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--green-light); margin-top: 2px; }
+
+  .home-hero {
+    background: linear-gradient(135deg, #0a150a 0%, var(--dark2) 60%, #111a11 100%);
+    padding: 36px 48px 32px;
+    border-bottom: 1px solid var(--border);
+    flex-shrink: 0;
+  }
+
+  .home-hero-ey { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green-light); margin-bottom: 8px; }
+  .home-hero-h { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: var(--text); }
+  .home-hero-h span { color: var(--green); }
+  .home-hero-sub { font-size: 13px; color: var(--muted); margin-top: 10px; max-width: 500px; line-height: 1.6; }
+
+  .home-tiles {
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-auto-rows: 1fr;
+    gap: 0;
+    padding: 0;
+    overflow: hidden;
+  }
+  .tile.span3 {
+    grid-column: span 3;
+  }
+
+  .tile {
+    position: relative;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    border: 1px solid var(--border);
+    cursor: pointer;
+    transition: all 0.18s ease;
+    padding: 24px 20px;
+    text-align: center;
+    background: var(--dark2);
+    overflow: hidden;
+  }
+
+  .tile::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--green);
+    transform: scaleX(0);
+    transition: transform 0.18s ease;
+    transform-origin: left;
+  }
+
+  .tile:hover::before { transform: scaleX(1); }
+
+  .tile:hover {
+    background: #162116;
+    border-color: var(--green);
+  }
+
+  .tile.external:hover { background: #0f1e2a; border-color: #3b82f6; }
+  .tile.external::before { background: #3b82f6; }
+
+  .tile.yellow:hover { background: #1a1500; border-color: #f59e0b; }
+  .tile.yellow::before { background: #f59e0b; }
+
+  .tile.orange:hover { background: #1a0e00; border-color: #f97316; }
+  .tile.orange::before { background: #f97316; }
+
+  .tile-icon {
+    width: 52px; height: 52px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 14px;
+    transition: transform 0.18s ease;
+    background: rgba(22,163,74,0.12);
+  }
+
+  .tile.external .tile-icon { background: rgba(59,130,246,0.12); }
+  .tile.yellow .tile-icon { background: rgba(245,158,11,0.12); }
+  .tile.orange .tile-icon { background: rgba(249,115,22,0.12); }
+
+  .tile:hover .tile-icon { transform: scale(1.08); }
+
+  .tile-icon svg { width: 26px; height: 26px; stroke: var(--green); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+  .tile.external .tile-icon svg { stroke: #60a5fa; }
+  .tile.yellow .tile-icon svg { stroke: #fcd34d; }
+  .tile.orange .tile-icon svg { stroke: #fb923c; }
+
+  .tile-name { font-weight: 700; font-size: 13px; color: var(--text); margin-bottom: 5px; }
+  .tile-desc { font-size: 10.5px; color: var(--muted); line-height: 1.5; }
+
+  .tile-badge {
+    position: absolute; top: 10px; right: 10px;
+    font-size: 8px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 20px;
+  }
+  .tile-badge.live { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
+  .tile-badge.live-yellow { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+  .tile-badge.live-orange { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
+  .tile-badge.demo { background: rgba(22,163,74,0.15); color: var(--green-light); border: 1px solid rgba(22,163,74,0.3); }
+
+  /* ── MODAL PICKER ── */
+  .modal-overlay {
+    display: none;
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.75);
+    z-index: 1000;
+    align-items: center; justify-content: center;
+    backdrop-filter: blur(4px);
+  }
+  .modal-overlay.active { display: flex; }
+
+  .modal-box {
+    background: var(--dark2);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 32px;
+    min-width: 480px;
+    max-width: 580px;
+    width: 90%;
+    position: relative;
+  }
+
+  .modal-box.wide {
+    max-width: 720px;
+  }
+
+  .modal-ad-thumb {
+    width: 100%;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    border: 1px solid var(--border);
+    position: relative;
+  }
+  .modal-ad-thumb img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    object-position: top;
+    display: block;
+  }
+  .modal-ad-thumb-label {
+    position: absolute;
+    bottom: 10px; left: 10px;
+    background: rgba(0,0,0,0.7);
+    backdrop-filter: blur(4px);
+    border-radius: 6px;
+    padding: 4px 10px;
+    font-size: 10px;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 30px; height: 30px; border-radius: 6px;
+    background: var(--dark3); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--muted); font-size: 18px; line-height: 1;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: var(--dark4); color: var(--text); }
+
+  .modal-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
+  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--text); margin-bottom: 6px; }
+  .modal-sub { font-size: 12px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
+
+  .modal-links { display: flex; flex-direction: column; gap: 10px; }
+
+  .modal-link-btn {
+    display: flex; align-items: center; gap: 14px;
+    padding: 14px 18px;
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.15s;
+    text-decoration: none;
+    text-align: left;
+  }
+
+  .modal-link-btn:hover {
+    background: rgba(22,163,74,0.08);
+    border-color: var(--green);
+  }
+
+  .modal-link-icon {
+    width: 38px; height: 38px; border-radius: 8px;
+    background: rgba(22,163,74,0.12);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .modal-link-icon svg { width: 18px; height: 18px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .modal-link-text { flex: 1; }
+  .modal-link-name { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 2px; }
+  .modal-link-desc { font-size: 11px; color: var(--muted); }
+
+  .modal-link-arrow { color: var(--muted); font-size: 16px; }
+
+  /* ── SLIDE SCREEN ── */
+  #slide {
+    width: 100%; height: 100%;
+    display: none; flex-direction: column;
+  }
+
+  .slide-header {
+    background: var(--dark2);
+    border-bottom: 1px solid var(--border);
+    padding: 14px 40px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-shrink: 0;
+  }
+
+  .slide-logo { display: flex; align-items: center; gap: 10px; }
+  .slide-logo .logo-box { width: 30px; height: 30px; border-radius: 6px; }
+  .slide-logo .logo-box svg { width: 17px; height: 17px; }
+  .slide-logo .logo-name { font-size: 22px; }
+
+  .slide-nav { display: flex; align-items: center; gap: 12px; }
+
+  .btn {
+    display: flex; align-items: center; gap: 7px;
+    padding: 9px 18px; border-radius: 7px;
+    font-size: 12px; font-weight: 600;
+    cursor: pointer; border: none;
+    transition: all 0.15s;
+    font-family: 'Inter', sans-serif;
+  }
+
+  .btn-ghost { background: transparent; border: 1px solid var(--dark4); color: var(--muted); }
+  .btn-ghost:hover { border-color: var(--muted); color: var(--text); }
+
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: #15803D; }
+
+  .btn-blue { background: #2563eb; color: #fff; }
+  .btn-blue:hover { background: #1d4ed8; }
+
+  .btn svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .slide-progress {
+    font-size: 11px; color: var(--muted); font-weight: 500;
+    padding: 0 16px; border-left: 1px solid var(--border);
+  }
+
+  .slide-body {
+    flex: 1; display: flex; overflow: hidden;
+  }
+
+  /* Left sidebar */
+  .slide-sidebar {
+    width: 260px; flex-shrink: 0;
+    background: var(--dark2);
+    border-right: 1px solid var(--border);
+    display: flex; flex-direction: column;
+    overflow-y: auto;
+    padding: 16px 0;
+  }
+
+  .sidebar-item {
+    display: flex; align-items: center; gap: 12px;
+    padding: 11px 20px;
+    cursor: pointer;
+    border-left: 3px solid transparent;
+    transition: all 0.15s;
+  }
+
+  .sidebar-item:hover { background: var(--dark3); }
+  .sidebar-item.active { border-left-color: var(--green); background: rgba(22,163,74,0.08); }
+  .sidebar-item.active .si-name { color: var(--green-light); }
+
+  .si-icon {
+    width: 32px; height: 32px; border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--dark3); flex-shrink: 0;
+  }
+  .si-icon svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .sidebar-item.active .si-icon { background: rgba(22,163,74,0.15); }
+  .sidebar-item.active .si-icon svg { stroke: var(--green-light); }
+
+  .si-name { font-size: 12px; font-weight: 600; color: var(--muted); }
+
+  /* Main slide content */
+  .slide-main {
+    flex: 1; display: flex; flex-direction: column; overflow: hidden;
+  }
+
+  .slide-content {
+    flex: 1; overflow-y: auto;
+    padding: 48px 60px;
+  }
+
+  .slide-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+  .slide-title { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: var(--text); margin-bottom: 16px; }
+  .slide-title span { color: var(--green); }
+  .slide-tagline { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 580px; margin-bottom: 36px; }
+
+  .slide-points { display: flex; flex-direction: column; gap: 16px; margin-bottom: 36px; }
+
+  .cs-gallery {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-top: 4px;
+  }
+  .cs-shot {
+    background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden;
+  }
+  .cs-shot img {
+    width: 100%; height: 160px; object-fit: cover; object-position: center;
+    display: block;
+  }
+  .cs-cap {
+    font-size: 11px; color: var(--muted); padding: 8px 12px;
+    letter-spacing: 0.2px;
+  }
+  @media (max-width: 720px) {
+    .cs-gallery { grid-template-columns: 1fr; }
+  }
+
+  .point {
+    display: flex; align-items: flex-start; gap: 14px;
+    background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 8px; padding: 16px 20px;
+  }
+
+  .point-dot {
+    width: 8px; height: 8px; background: var(--green); border-radius: 50%;
+    flex-shrink: 0; margin-top: 6px;
+  }
+
+  .point-text { font-size: 13.5px; color: #e5e7eb; line-height: 1.6; }
+  .point-text strong { color: #fff; font-weight: 700; }
+
+  /* System slide styles */
+  .system-pillars {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+  }
+
+  .pillar {
+    background: var(--dark3);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px 20px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pillar::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--green);
+  }
+
+  .pillar-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px; color: rgba(22,163,74,0.15);
+    position: absolute; top: 10px; right: 14px;
+    line-height: 1;
+  }
+
+  .pillar-icon {
+    width: 48px; height: 48px; border-radius: 10px;
+    background: rgba(22,163,74,0.12);
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .pillar-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+  .pillar-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--text); margin-bottom: 10px; }
+  .pillar-items { list-style: none; text-align: left; }
+  .pillar-items li { font-size: 11.5px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .pillar-items li:last-child { border-bottom: none; }
+  .pillar-items li::before { content: ''; width: 5px; height: 5px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
+
+  .system-tagline {
+    background: rgba(22,163,74,0.06);
+    border: 1px solid rgba(22,163,74,0.2);
+    border-radius: 10px;
+    padding: 18px 24px;
+    font-size: 14px;
+    color: var(--text);
+    line-height: 1.6;
+    text-align: center;
+    font-style: italic;
+  }
+
+  .slide-action {
+    padding: 24px 60px;
+    border-top: 1px solid var(--border);
+    background: var(--dark2);
+    display: flex; align-items: center; gap: 14px;
+    flex-shrink: 0;
+  }
+
+  .action-label { font-size: 12px; color: var(--muted); font-weight: 500; flex: 1; }
+
+  /* System slide - value stack */
+  .value-stack {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 24px;
+  }
+  .value-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    background: var(--dark3); border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px 14px;
+  }
+  .value-check {
+    width: 18px; height: 18px; border-radius: 50%;
+    background: rgba(22,163,74,0.2); color: var(--green-light);
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0; font-size: 10px; font-weight: 700; margin-top: 1px;
+  }
+  .value-text { font-size: 12px; color: #e5e7eb; line-height: 1.4; }
+  .value-text strong { color: #fff; font-weight: 700; display: block; margin-bottom: 1px; }
+  .value-text span { color: var(--muted); font-size: 11px; }
+
+  .pricing-block {
+    background: linear-gradient(135deg, rgba(22,163,74,0.08) 0%, rgba(22,163,74,0.03) 100%);
+    border: 2px solid rgba(22,163,74,0.3);
+    border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
+    display: flex; align-items: center; gap: 24px;
+  }
+  .pricing-main { flex: 1; }
+  .pricing-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
+  .pricing-amount { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--text); line-height: 1; }
+  .pricing-amount span { font-size: 28px; color: var(--green-light); }
+  .pricing-tag { font-size: 11px; color: var(--muted); margin-top: 4px; }
+  .pricing-tag strong { color: var(--text); }
+  .pricing-ongoing {
+    background: var(--dark3); border: 1px solid var(--border);
+    border-radius: 10px; padding: 14px 18px; text-align: center; min-width: 160px;
+  }
+  .pricing-ongoing-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .pricing-ongoing-amount { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text); line-height: 1; }
+  .pricing-ongoing-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
+
+  /* Email send section */
+  .email-send-block {
+    background: var(--dark2); border: 1px solid var(--border);
+    border-radius: 12px; padding: 18px 20px; margin-top: 4px;
+  }
+  .email-send-header {
+    display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+  }
+  .email-send-icon {
+    width: 36px; height: 36px; border-radius: 8px;
+    background: rgba(59,130,246,0.12);
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  }
+  .email-send-icon svg { width: 16px; height: 16px; stroke: #60a5fa; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .email-send-title { font-size: 13px; font-weight: 700; color: var(--text); }
+  .email-send-sub { font-size: 11px; color: var(--muted); margin-top: 1px; }
+  .email-send-row { display: flex; gap: 8px; }
+  .email-input {
+    flex: 1; background: var(--dark3); border: 1px solid var(--border);
+    border-radius: 7px; padding: 9px 12px; font-size: 12px; color: var(--text);
+    font-family: 'Inter', sans-serif; outline: none; transition: border-color 0.15s;
+  }
+  .email-input:focus { border-color: var(--green); }
+  .email-input::placeholder { color: var(--muted); }
+  .btn-send-email {
+    display: flex; align-items: center; gap: 6px;
+    padding: 9px 16px; border-radius: 7px; background: #2563eb;
+    color: #fff; font-size: 12px; font-weight: 600;
+    border: none; cursor: pointer; font-family: 'Inter', sans-serif;
+    transition: background 0.15s; white-space: nowrap;
+  }
+  .btn-send-email:hover { background: #1d4ed8; }
+  .btn-send-email svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+  .email-sent-msg { font-size: 11px; color: var(--green-light); margin-top: 8px; display: none; }
+
+
+
+</style>
+</head>
+<body>
+
+<!-- ══════════ HOME ══════════ -->
+<div id="home">
+
+  <div class="home-header">
+    <div class="home-logo">
+      <div class="logo-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      </div>
+      <div class="logo-name">TRADIE <span>PULSE</span></div>
+    </div>
+    <div class="home-meta">
+      <div class="home-meta-label">Strategy Call Presenter</div>
+      <div class="home-meta-title">Click any section to begin →</div>
+    </div>
+  </div>
+
+  <div class="home-hero">
+    <div class="home-hero-ey">Tradie Pulse - Strategy Call</div>
+    <div class="home-hero-h">WHAT WE BUILD FOR<br/><span>YOUR BUSINESS</span></div>
+    <div class="home-hero-sub">Walk the prospect through each pillar of the system. Click any tile to dive in - live tools open directly in a new tab.</div>
+  </div>
+
+  <div class="home-tiles">
+
+    <!-- Row 1: Live Tools -->
+    <div class="tile external" onclick="openLink('https://adsmanager.facebook.com/adsmanager/reporting/business_view?act=1345893057155434&ads_manager_write_regions=true&business_id=364803359285803&event_source=AUTO_REDIRECT')">
+      <span class="tile-badge live">Live Tool</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+      </div>
+      <div class="tile-name">Meta Ads</div>
+    </div>
+
+    <div class="tile yellow" onclick="openLink('https://ai.tradiepulse.com.au/v2/location/yUh1SHK3rPrLKuhijyj1/opportunities')">
+      <span class="tile-badge live-yellow">Live Tool</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+      </div>
+      <div class="tile-name">CRM & Pipeline</div>
+    </div>
+
+    <div class="tile demo" onclick="showSlide('adideas')">
+      <span class="tile-badge demo">Examples</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <div class="tile-name">Ad Creatives</div>
+    </div>
+
+    <!-- Row 2 -->
+    <div class="tile demo" onclick="showModal('landing')">
+      <span class="tile-badge demo">Examples</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      </div>
+      <div class="tile-name">Landing Page</div>
+    </div>
+
+
+
+    <div class="tile demo" onclick="showModal('estimator')">
+      <span class="tile-badge demo">Examples</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+      </div>
+      <div class="tile-name">Quote Estimator</div>
+    </div>
+
+    <div class="tile demo" onclick="showModal('branddocs')">
+      <span class="tile-badge demo">Examples</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      </div>
+      <div class="tile-name">Brand Kit &amp; Capability</div>
+    </div>
+
+    <!-- Row 3 -->
+    <div class="tile external" onclick="openLink('https://approvals.tradiepulse.org/sales/targeting-map.html')">
+      <span class="tile-badge live">Live Tool</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
+      </div>
+      <div class="tile-name">Targeting</div>
+    </div>
+
+    <div class="tile demo" onclick="showSlide('content')">
+      <span class="tile-badge demo">Slide</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+      </div>
+      <div class="tile-name">Content Shoot</div>
+    </div>
+
+    <div class="tile skool" onclick="openLink('https://www.skool.com/tradiepulse-8644')">
+      <span class="tile-badge" style="background:rgba(124,58,237,0.15);color:#c4b5fd;border:1px solid rgba(124,58,237,0.3);">Community</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      </div>
+      <div class="tile-name">Skool</div>
+    </div>
+
+
+
+    <!-- Our System full width -->
+    <div class="tile demo span3" onclick="showSlide('system')">
+      <span class="tile-badge demo">Our System</span>
+      <div class="tile-icon">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      </div>
+      <div class="tile-name">Our System</div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+
+<!-- Landing Page Modal -->
+<div class="modal-overlay" id="modal-landing" onclick="closeModal('landing')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('landing')">×</button>
+    <div class="modal-eyebrow">Landing Pages</div>
+    <div class="modal-title">CLIENT EXAMPLES</div>
+    <div class="modal-sub">Live landing pages built for real clients. Walk the prospect through the design, form, and layout.</div>
+    <div class="modal-links">
+      <a class="modal-link-btn" href="https://www.stflowcrete.com.au/#get-quote" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Flowcrete Constructions</div>
+          <div class="modal-link-desc">Concrete & construction - live landing page</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="https://www.beachsiderenovation.com.au/" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Beachside Building & Renovations</div>
+          <div class="modal-link-desc">Custom home builds & renovations - Northern Beaches</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="https://level7.tradiepulse.org/home-page-840507" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Level Seven Building Group</div>
+          <div class="modal-link-desc">Residential construction & project management</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Estimator Modal -->
+<div class="modal-overlay" id="modal-estimator" onclick="closeModal('estimator')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('estimator')">×</button>
+    <div class="modal-eyebrow">Quote Estimators</div>
+    <div class="modal-title">LIVE EXAMPLES</div>
+    <div class="modal-sub">Real estimator tools built for clients. Shows how budget pre-qualification works in practice.</div>
+    <div class="modal-links">
+      <a class="modal-link-btn" href="https://client-portal-production-58bf.up.railway.app/tools/blj-estimator.html" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">BLJ Constructions - Decking, Concreting & Pergola</div>
+          <div class="modal-link-desc">Decking, concreting & pergola quote estimator</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="https://workshop.tradiepulse.com.au/bathroom-estimate" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Bathroom Estimator</div>
+          <div class="modal-link-desc">Interactive bathroom renovation quote tool</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="https://workshop.tradiepulse.com.au/decking--pergola-estimate" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Decking & Pergola Estimator</div>
+          <div class="modal-link-desc">Interactive decking & pergola quote tool</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<!-- Brand Kit & Capability Statement Combined Modal -->
+<div class="modal-overlay" id="modal-branddocs" onclick="closeModal('branddocs')">
+  <div class="modal-box" onclick="event.stopPropagation()" style="max-width:900px;width:95vw;max-height:90vh;overflow-y:auto">
+    <button class="modal-close" onclick="closeModal('branddocs')">×</button>
+    <div class="modal-eyebrow">Brand Kit & Capability Statement</div>
+    <div class="modal-title">CLIENT EXAMPLES</div>
+    <div class="modal-sub">Two real client examples — scroll through each one below.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px">
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#4ade80;margin-bottom:8px">Company Profile</div>
+        <div style="font-size:12px;font-weight:600;color:#f9fafb;margin-bottom:10px">Ontrac Construction</div>
+        <iframe src="https://drive.google.com/file/d/1B08JdXAtO0_ubKL0GQ0mcn8gbDraofz_/preview" style="width:100%;height:480px;border:none;border-radius:10px;background:#1f2937" allow="autoplay"></iframe>
+      </div>
+      <div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#60a5fa;margin-bottom:8px">Brand Kit</div>
+        <div style="font-size:12px;font-weight:600;color:#f9fafb;margin-bottom:10px">Ontrac Construction</div>
+        <iframe src="https://drive.google.com/file/d/1YUukeFBSA8575btISK8SIdL1FhzGrSEz/preview" style="width:100%;height:480px;border:none;border-radius:10px;background:#1f2937" allow="autoplay"></iframe>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Ad Creative Modal -->
+<div class="modal-overlay" id="modal-adcreative" onclick="closeModal('adcreative')">
+  <div class="modal-box wide" onclick="event.stopPropagation()" style="max-width:780px">
+    <button class="modal-close" onclick="closeModal('adcreative')">×</button>
+    <div class="modal-eyebrow">Ad Creative</div>
+    <div class="modal-title">CLIENT EXAMPLES</div>
+    <div class="modal-sub">Real ads built for active clients — video, static & content shoot creative.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+
+      <div style="border-radius:10px;overflow:hidden;position:relative;background:#000;aspect-ratio:9/10">
+        <img src="examples/flowcrete-video-ad.png" alt="Flowcrete Video Ad" style="width:100%;height:100%;object-fit:cover;display:block" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.75));font-size:10px;font-weight:700;color:#fff;letter-spacing:0.5px">Flowcrete — Video Ad</div>
+      </div>
+
+      <div style="border-radius:10px;overflow:hidden;position:relative;background:#f5f0eb;aspect-ratio:9/10">
+        <img src="examples/mh-projects-extension-ad.png" alt="MH Projects Extension Ad" style="width:100%;height:100%;object-fit:cover;object-position:top;display:block" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.7));font-size:10px;font-weight:700;color:#fff;letter-spacing:0.5px">MH Projects — Extension Ad</div>
+      </div>
+
+      <div style="border-radius:10px;overflow:hidden;position:relative;background:#111;aspect-ratio:9/10">
+        <img src="examples/htc-content-shoot.jpg" alt="HTC Landscapes Content Shoot" style="width:100%;height:100%;object-fit:cover;display:block" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.75));font-size:10px;font-weight:700;color:#fff;letter-spacing:0.5px">HTC Landscapes — Content Shoot</div>
+      </div>
+
+      <div style="border-radius:10px;overflow:hidden;position:relative;background:#111;aspect-ratio:9/10">
+        <img src="examples/htc-landscapes-static-ad.jpg" alt="HTC Landscapes Static Ad" style="width:100%;height:100%;object-fit:cover;display:block" />
+        <div style="position:absolute;bottom:0;left:0;right:0;padding:8px 10px;background:linear-gradient(transparent,rgba(0,0,0,0.75));font-size:10px;font-weight:700;color:#fff;letter-spacing:0.5px">HTC Landscapes — Static Brand Ad</div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════ SLIDE VIEW ══════════ -->
+<div id="slide">
+
+  <div class="slide-header">
+    <div class="slide-logo">
+      <div class="logo-box">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>
+        </svg>
+      </div>
+      <div class="logo-name">TRADIE <span>PULSE</span></div>
+    </div>
+    <div class="slide-nav">
+      <button class="btn btn-ghost" onclick="goHome()">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </button>
+      <div class="slide-progress" id="slideProgress">1 / 5</div>
+      <button class="btn btn-ghost" onclick="prevSlide()">
+        <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        Prev
+      </button>
+      <button class="btn btn-green" onclick="nextSlide()">
+        Next
+        <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+    </div>
+  </div>
+
+  <div class="slide-body">
+
+    <div class="slide-sidebar">
+      <div class="sidebar-item" id="si-content" onclick="showSlide('content')">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <div class="si-name">Content Shoot</div>
+      </div>
+      <div class="sidebar-item" id="si-qualify" onclick="showSlide('qualify')">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/></svg></div>
+        <div class="si-name">Lead Qualification</div>
+      </div>
+      <div class="sidebar-item" id="si-checkins" onclick="showSlide('checkins')">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.41 2 2 0 0 1 3.6 1.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.82a16 16 0 0 0 6 6l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div>
+        <div class="si-name">Check-In Calls</div>
+      </div>
+      <div class="sidebar-item" id="si-adideas" onclick="showSlide('adideas')">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="6"/><line x1="12" y1="18" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="7.76" y2="7.76"/><line x1="16.24" y1="16.24" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="6" y2="12"/><line x1="18" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="7.76" y2="16.24"/><line x1="16.24" y1="7.76" x2="19.07" y2="4.93"/></svg></div>
+        <div class="si-name">Ad Creatives</div>
+      </div>
+      <div class="sidebar-item" id="si-system" onclick="showSlide('system')">
+        <div class="si-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+        <div class="si-name">Our System</div>
+      </div>
+    </div>
+
+    <div class="slide-main">
+      <div class="slide-content" id="slideContent">
+        <!-- Populated by JS -->
+      </div>
+      <div class="slide-action" id="slideAction">
+        <!-- Populated by JS -->
+      </div>
+    </div>
+
+    <!-- Talking panel removed -->
+
+  </div>
+</div>
+
+<script>
+const slides = {
+  content: {
+    order: 0,
+    eyebrow: 'Content Creation',
+    title: 'CONTENT SHOOT',
+    titleAccent: 'ANYWHERE IN AUSTRALIA',
+    tagline: 'We send a professional videographer to your location - no matter where you are in Australia - to capture authentic footage of your work that converts far better than stock photos.',
+    points: [
+      { text: '<strong>We come to you.</strong> Brisbane, rural NSW, Perth - doesn\'t matter. We fly or drive to your location and shoot on a day that works for you.' },
+      { text: '<strong>Real work. Real footage.</strong> Before and afters, team on-site, finished projects. The kind of content that makes prospects say "that looks like my job."' },
+      { text: '<strong>Used across everything.</strong> Hero images for the landing page, social ad creative, Google profile, quote documents - every asset gets better.' },
+      { text: '<strong>No preparation needed from you.</strong> Just show up to work. We handle everything - direction, editing, delivery.' },
+    ],
+    gallery: [
+      { src: 'examples/content-shoot/shoot-pressure-wash.jpg', cap: 'Pressure washing — live on the job' },
+      { src: 'examples/content-shoot/shoot-surface-cleaner.jpg', cap: 'Surface cleaning — gear in action' },
+      { src: 'examples/content-shoot/shoot-pool-hero.jpg', cap: 'Before & after — premium finish' },
+    ],
+    action: null,
+    talking: [
+      { text: 'Ask: <strong>"What do your current ads look like?"</strong> If they say stock photos or old iPhone shots - this is your moment.' },
+      { text: 'Emphasise: <strong>authentic content outperforms polished stock by 3-4x</strong> in ad performance for tradies.' },
+      { text: 'Mention the shoot is included in their package - not an extra cost.' },
+      { text: 'If they have existing good photos: "We\'ll use those too - the shoot is about getting fresh material."' },
+    ]
+  },
+  qualify: {
+    order: 1,
+    eyebrow: 'Lead Filtering',
+    title: 'LEAD QUALIFICATION',
+    titleAccent: 'FORM',
+    tagline: 'A smart intake form that filters serious buyers from tyre kickers before they ever reach your inbox. You only talk to people who are actually ready.',
+    points: [
+      { text: '<strong>Filters by budget, timeline & location.</strong> Anyone outside your criteria gets a polite rejection. You never waste time on leads you can\'t help.' },
+      { text: '<strong>Pre-qualifies intent.</strong> By the time a lead reaches you, they\'ve already told you their project size, timeline, and budget expectations.' },
+      { text: '<strong>Reduces wasted calls by 60-80%.</strong> No more hour-long calls with people who "just want a rough idea."' },
+      { text: '<strong>Integrated into your CRM.</strong> Qualified leads hit your pipeline instantly, unqualified leads are tagged and archived automatically.' },
+    ],
+    action: { label: 'See the full flow', url: '/sales/lead-qualification-flow.html', type: 'green' },
+    talking: [
+      { text: 'Ask: <strong>"How many of your current enquiries are actually qualified?"</strong> Most tradies say less than half.' },
+      { text: 'Explain the form fields: budget range, project type, timeline, postcode.' },
+      { text: '<strong>Key point:</strong> this isn\'t about turning people away - it\'s about protecting your time.' },
+      { text: 'Mention: unqualified leads still get a response, just automated - keeps the door open.' },
+    ]
+  },
+  profile: {
+    order: 2,
+    eyebrow: 'Brand Asset',
+    title: 'COMPANY',
+    titleAccent: 'PROFILE',
+    tagline: 'A polished company profile that tells your story - who you are, what you do, and why clients should choose you over every other tradie in your area.',
+    points: [
+      { text: '<strong>Your story, professionally told.</strong> Founding story, values, team, service areas, specialities - all packaged into a single document that builds instant trust.' },
+      { text: '<strong>Works for commercial clients and referrals.</strong> When someone asks "who do you use?" your client can forward this instead of struggling to explain.' },
+      { text: '<strong>Differentiates you immediately.</strong> 99% of tradies have nothing like this. The fact you have one sets you apart before you quote.' },
+      { text: '<strong>Digital & print ready.</strong> We deliver in PDF and web-optimised formats - use it anywhere.' },
+    ],
+    action: null,
+    talking: [
+      { text: 'Ask: <strong>"If I Googled your business right now, what would I find?"</strong> Most say not much.' },
+      { text: 'The company profile fills that gap - gives them something to read about you before they make a decision.' },
+      { text: 'Especially powerful for commercial work - project managers and builders need this before approving a subcontractor.' },
+      { text: '<strong>Key line:</strong> "Your work speaks for itself - this makes sure people actually see it."' },
+    ]
+  },
+  checkins: {
+    order: 3,
+    eyebrow: 'Ongoing Support',
+    title: 'CHECK-IN CALLS',
+    titleAccent: '& TRAINING',
+    tagline: 'Regular check-in calls to make sure you\'re properly trained, getting results, and have everything you need to keep winning. We don\'t disappear after onboarding.',
+    points: [
+      { text: '<strong>Structured check-ins from day one.</strong> Week 1 onboarding call. Then regular check-ins as campaigns go live and results come in.' },
+      { text: '<strong>Training is ongoing, not one-and-done.</strong> As your team grows, we train them. New sales rep? We brief them on the scripts.' },
+      { text: '<strong>We review what\'s working.</strong> Ad performance, lead quality, conversion rate - we look at the numbers with you and make adjustments.' },
+      { text: '<strong>You have a dedicated contact.</strong> Not a ticket system. Not a bot. A real person who knows your account and picks up the phone.' },
+    ],
+    action: null,
+    talking: [
+      { text: 'Ask: <strong>"What\'s your experience been like with agencies you\'ve used before?"</strong> Most say they felt ignored after signing.' },
+      { text: '<strong>This is the antidote.</strong> We stay in it - not just at the start.' },
+      { text: 'Walk through the check-in cadence: onboarding week 1, performance review at 30 days, then monthly.' },
+      { text: '<strong>Close with:</strong> "Our job isn\'t done when you sign - it\'s done when you\'re winning consistently."' },
+    ]
+  },
+  adideas: {
+    order: 3,
+    isAdIdeas: true,
+    eyebrow: 'Ad Creatives',
+    title: 'AD',
+    titleAccent: 'CREATIVES',
+    tagline: 'Real client ad examples, creative types, formats, hooks & proven results — the full creative playbook for tradies.'
+  },
+  system: {
+    order: 4,
+    eyebrow: 'The Tradie Pulse System',
+    title: 'OUR',
+    titleAccent: 'SYSTEM',
+    tagline: 'Three interconnected pillars that work together to generate leads, automate follow-up, and grow your business month after month.',
+    isSystem: true,
+    talking: [
+      { text: '<strong>Walk through each item.</strong> "This alone would cost you $X to get done elsewhere." Let the value stack speak.' },
+      { text: '<strong>The price frame:</strong> "One payment covers everything. The only ongoing cost is $197/month for the CRM - and that\'s yours to keep. It\'s a third-party platform, not charged by us."' },
+      { text: 'Ask: <strong>"If you were to piece all this together yourself - the ads, the content, the landing page, the CRM - what do you think that would cost you?"</strong>' },
+      { text: 'If they\'re not ready: <strong>hit Send Summary</strong> - gets them a PDF of everything while you\'re still top of mind. We follow up within 24 hours.' },
+    ]
+  }
+};
+
+const hookTemplates = [
+  {
+    label: 'Template 1 - Pain Interrupt',
+    template: "If you're experiencing [pain point], pay attention...",
+    example: `e.g. "If you're experiencing a dry run of leads despite spending on ads, pay attention..."`,
+    tip: 'Broad call-out. Works when the pain is universal to the trade.'
+  },
+  {
+    label: 'Template 2 - Most Are Failing',
+    template: "Most [trade] are [pain point of potential client] because...",
+    example: `e.g. "Most builders are losing $40K+ a year in missed enquiries because their follow-up system doesn't exist..."`,
+    tip: 'Creates curiosity + positions you as the one who knows why. Add the insight after "because".'
+  },
+  {
+    label: 'Template 3 - The Real Reason',
+    template: "The reason you [pain point] is...",
+    example: `e.g. "The reason you're getting leads but not bookings isn't your price - it's your response time..."`,
+    tip: 'Challenges assumptions. Best paired with a counter-intuitive insight after "is".'
+  }
+];
+
+const slideOrder = ['content','qualify','checkins','adideas','system'];
+let currentSlide = 'content';
+
+function openLink(url) {
+  window.open(url, '_blank');
+}
+
+function showModal(type) {
+  document.getElementById('modal-' + type).classList.add('active');
+}
+
+function closeModal(type) {
+  document.getElementById('modal-' + type).classList.remove('active');
+}
+
+// Close modals on Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
+    if (document.getElementById('slide').style.display === 'flex') goHome();
+  }
+});
+
+function goHome() {
+  document.getElementById('home').style.display = 'flex';
+  document.getElementById('slide').style.display = 'none';
+}
+
+function showSlide(key) {
+  // Reset price reveal whenever slide changes
+  const pd = document.getElementById('pricing-display');
+  if (pd) { pd.style.filter = 'blur(12px)'; pd.style.userSelect = 'none'; pd.innerHTML = '<span>$</span>&#8212;&#8212;&#8212;'; }
+  const b3 = document.getElementById('price-btn-3200'), b4 = document.getElementById('price-btn-4500');
+  if (b3) { b3.style.border='2px solid var(--border)'; b3.style.background='var(--dark3)'; b3.style.color='var(--muted)'; }
+  if (b4) { b4.style.border='2px solid var(--border)'; b4.style.background='var(--dark3)'; b4.style.color='var(--muted)'; }
+  // Reset excluded items
+  ['content-shoot','quote-estimator'].forEach(key => {
+    const item = document.getElementById('vi-'+key);
+    const check = document.getElementById('vc-'+key);
+    if (item) { item.style.opacity='1'; item.style.borderLeft=''; }
+    if (check) { check.textContent='✓'; check.style.background=''; check.style.color=''; }
+  });
+
+  currentSlide = key;
+  const s = slides[key];
+  const idx = slideOrder.indexOf(key);
+
+  document.getElementById('home').style.display = 'none';
+  document.getElementById('slide').style.display = 'flex';
+
+  // Progress
+  document.getElementById('slideProgress').textContent = `${idx + 1} / ${slideOrder.length}`;
+
+  // Sidebar active
+  slideOrder.forEach(k => {
+    const el = document.getElementById('si-' + k);
+    if (el) el.classList.toggle('active', k === key);
+  });
+
+  // Content - ad ideas slide
+  if (s.isAdIdeas) {
+    document.getElementById('slideContent').innerHTML = `
+      <div class="slide-eyebrow">${s.eyebrow}</div>
+      <div class="slide-title">${s.title} <span>${s.titleAccent}</span></div>
+      <div class="slide-tagline">${s.tagline}</div>
+
+      <!-- AD TYPES -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">AD CREATIVE TYPES</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🎯</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Direct Response</div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">Problem → Solution → CTA. Calls out a specific pain point and offers a clear next step. Best for urgent homeowner problems and tight service areas.</div>
+          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Sick of chasing quotes? Get a fixed-price deck in 7 days."</div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #60a5fa">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(96,165,250,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🏆</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Showcase</div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">Quality work front and centre. Hero shots, finished projects, team on-site. Sells the outcome, not the process. Great for premium positioning and higher-value clients.</div>
+          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Here's what we built last week in Mosman."</div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #f59e0b">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(245,158,11,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🔄</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Before & After</div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">Visual transformation in one scroll-stop frame. One of the highest-converting formats for tradies - homeowners instantly picture their own project and what's possible.</div>
+          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Left: cracked patio. Right: exposed aggregate masterpiece."</div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #a78bfa">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(167,139,250,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">⭐</div>
+            <div style="font-size:12px;font-weight:700;color:#fff">Testimonials</div>
+          </div>
+          <div style="font-size:11px;color:var(--muted);line-height:1.5">Let happy clients do the talking. Builds instant trust and social proof. Works as video testimonial, quote card, or text overlay on a finished project photo.</div>
+          <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"3 quotes, yours was the only one who showed up on time."</div>
+        </div>
+
+      </div>
+
+      <!-- AD FORMATS -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">AD FORMATS</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px">
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
+          <div style="text-align:center;margin-bottom:10px">
+            <div style="font-size:24px;margin-bottom:4px">🖼</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Static</div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Fast & cheap to produce</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Easy to A/B test</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Great for direct offers</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Low barrier to start</div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:5px">CONS</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:10.5px;color:#9ca3af">✕ Lower engagement</div>
+            <div style="font-size:10.5px;color:#9ca3af">✕ Limited storytelling</div>
+            <div style="font-size:10.5px;color:#9ca3af">✕ Scrolled past quickly</div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid rgba(96,165,250,0.25);border-radius:10px;padding:14px 16px">
+          <div style="text-align:center;margin-bottom:10px">
+            <div style="font-size:24px;margin-bottom:4px">🎴</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Carousel</div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Multiple projects in one ad</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Swipe = high engagement</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Perfect for before/afters</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Tells a story across cards</div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:5px">CONS</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:10.5px;color:#9ca3af">✕ Needs 5+ quality images</div>
+            <div style="font-size:10.5px;color:#9ca3af">✕ More complex to design</div>
+            <div style="font-size:10.5px;color:#9ca3af">✕ Varied mobile experience</div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid rgba(249,115,22,0.25);border-radius:10px;padding:14px 16px">
+          <div style="text-align:center;margin-bottom:10px">
+            <div style="font-size:24px;margin-bottom:4px">🎬</div>
+            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Video</div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
+          <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Highest engagement rate</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Builds trust fastest</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Dominates Reels & Stories</div>
+            <div style="font-size:10.5px;color:#e5e7eb">✓ Shows work & personality</div>
+          </div>
+          <div style="font-size:10px;font-weight:700;color:#ef4444;letter-spacing:1px;margin-bottom:5px">CONS</div>
+          <div style="display:flex;flex-direction:column;gap:3px">
+            <div style="font-size:10.5px;color:#9ca3af">✕ Expensive to produce</div>
+            <div style="font-size:10.5px;color:#9ca3af">✕ Slower to test & iterate</div>
+            <div style="font-size:10.5px;color:#9ca3af">✕ Needs a strong 3-sec hook</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- HOOKS -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">HOOKS - STOP THE SCROLL</div>
+      <div style="background:rgba(22,163,74,0.04);border:1px solid rgba(22,163,74,0.15);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:11.5px;color:var(--muted);line-height:1.7">
+        A hook does two things: <strong style="color:#e5e7eb">call out the avatar</strong> (who specifically you're talking to) and <strong style="color:#e5e7eb">call out the pain point</strong> (what they're struggling with right now). When someone sees themselves in the first line - they stop scrolling. Everything after that is just closing the deal.
+      </div>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        ${hookTemplates.map((h, i) => `
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px">
+          <div style="flex:1">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">${h.label}</div>
+            <div style="font-size:13px;color:#f9fafb;font-style:italic;line-height:1.5;margin-bottom:6px">"${h.template}"</div>
+            <div style="font-size:10.5px;color:#6b7280;margin-bottom:4px">${h.example}</div>
+            <div style="font-size:10px;color:rgba(22,163,74,0.7);font-style:italic">${h.tip}</div>
+          </div>
+          <button onclick="copyHook(${i})" id="hook-btn-${i}" style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:6px;padding:7px 14px;color:var(--green-light);font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;flex-shrink:0;transition:all 0.15s">Copy</button>
+        </div>
+        `).join('')}
+      </div>
+
+      <!-- REAL RESULTS GALLERY -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-top:28px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">REAL CLIENT RESULTS - 90 DAYS LIVE</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:16px">Actual campaigns across active Tradie Pulse clients. Spend, approach, and enquiries over 90 days.</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #a78bfa">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(124,58,237,0.15);color:#c4b5fd;border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:2px 8px">Gates &amp; Fencing</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Titan Gates - QLD</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Showcase</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Brand intro video showing custom aluminium gate builds. Led with quality craftsmanship and local Gold Coast manufacturing. CTA: Get Quote.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,599</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">293</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$5.46</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.15);color:var(--green-light);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:2px 8px">Landscaping</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Absolute Landscape - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Lifestyle hook - "Work. Train. Relax. At Home." Targeted homeowners wanting a private outdoor retreat. Granny flat and tiny house builds. Fast turnaround CTA.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,161</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">113</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$10.27</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fb923c">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);border-radius:20px;padding:2px 8px">Builder</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(148,163,184,0.12);color:#cbd5e1;border:1px solid rgba(148,163,184,0.25);border-radius:20px;padding:2px 8px">Static</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Empre Constructions - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Clear price anchor - "Granny Flats from $170K." Image of a finished granny flat. Immediate offer, no fluff. Targeted Sydney homeowners with existing land.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$766</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">55</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$13.93</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fb923c">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);border-radius:20px;padding:2px 8px">Concreting</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Empre Constructions - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Showcase</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Timelapse video of a full driveway install - start to finish in under 30 seconds. Let the craft sell itself. Driveways, slabs, footpaths & exposed aggregate. Premium positioning.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,660</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">186</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$8.92</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #7dd3fc">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(56,189,248,0.15);color:#7dd3fc;border:1px solid rgba(56,189,248,0.3);border-radius:20px;padding:2px 8px">Car Detailing</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Ocean Glow Detailing - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Showcase</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Quality positioning over price - "Lasting Gloss, Not Quick Shine." Brand intro video highlighting finish quality. Targeted car enthusiasts in Sydney metro.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$578</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">199</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$2.90</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fcd34d">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:2px 8px">Concreting</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">GIF / Video</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">BLJ Concrete - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Pain hook GIF - "Need a New Driveway or Footpath?" Animated before/after loop. Short, punchy copy. Driveways, footpaths & decorative concrete. Targeted homeowners in Western Sydney.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,067</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">143</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$7.46</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fde047">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(250,204,21,0.15);color:#fde047;border:1px solid rgba(250,204,21,0.3);border-radius:20px;padding:2px 8px">Electrical</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(148,163,184,0.12);color:#cbd5e1;border:1px solid rgba(148,163,184,0.25);border-radius:20px;padding:2px 8px">Static</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">BTG Electrical - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Specific offer with a hard price - "Ceiling Fan Installs from $400." Clean product image. No fluff, straight to the CTA. High-ticket lead, low cost per install booked.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,461</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">19</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$76.89</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
+          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.15);color:var(--green-light);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:2px 8px">Carpentry</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(148,163,184,0.12);color:#cbd5e1;border:1px solid rgba(148,163,184,0.25);border-radius:20px;padding:2px 8px">Static</div>
+          </div>
+          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Elevate Carpentry - NSW</div>
+          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Before &amp; After</div>
+          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Local authority positioning - "The Hawkesbury's deck and pergola team." Called out the suburb, team size (8 carpenters), and included a $500 on-time guarantee. High-trust, area-specific.</div>
+          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,320</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
+            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">27</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
+            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$48.91</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
+          </div>
+        </div>
+
+      </div>
+    `;
+    document.getElementById('slideAction').style.display = 'flex';
+    document.getElementById('slideAction').innerHTML = `
+      <div class="action-label">See real ads we've built for active clients?</div>
+      <button class="btn btn-green" onclick="showModal('adcreative')">
+        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
+        Client Examples
+      </button>
+    `;
+    return;
+  }
+
+  // Content - system slide gets special treatment
+  if (s.isSystem) {
+    document.getElementById('slideContent').innerHTML = `
+      <div class="slide-eyebrow">${s.eyebrow}</div>
+      <div class="slide-title">${s.title} <span>${s.titleAccent}</span></div>
+      <div class="slide-tagline">${s.tagline}</div>
+
+      <!-- 2-TIER PRICING TABLE -->
+      <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px">
+
+        <!-- DONE WITH YOU (MOST POPULAR) -->
+        <div style="background:rgba(22,163,74,0.06);border:2px solid var(--green);border-radius:12px;padding:20px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)"></div>
+          <div style="position:absolute;top:11px;right:11px;background:var(--green);color:#fff;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px">MOST POPULAR</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px">DONE WITH YOU</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:var(--green-light)">$</span>4,950</div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:8px">Inc. GST — One-Time Payment</div>
+
+          <div style="background:rgba(22,163,74,0.1);border:2px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span style="font-size:18px;line-height:1">✅</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4ade80">30-Day Enquiry Guarantee</span>
+            </div>
+            <div style="font-size:11px;color:#bbf7d0;line-height:1.5;margin-bottom:2px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
+
+          </div>
+
+          <details class="sys-acc"><summary><span>📦</span>DELIVERABLES<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Full CRM build — pipeline, automations & phone number</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Calendars connected + synced</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Skool — 6 months access</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Meta campaign — 1 video + 1 static ad</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Copy, editing + targeting — all handled</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Qualifying form + brand kit + company profile</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Custom landing page</div>
+          </div></details>
+          <details class="sys-acc"><summary><span>🛡️</span>SUPPORT<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>1-on-1 onboarding call + screen share</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Client portal + daily group calls</div>
+          </div></details>
+          <details class="sys-acc"><summary style="color:#6b7280"><span>–</span>NOT INCLUDED<span class="acc-arrow">›</span></summary><div class="acc-body"><div style="font-size:11px;color:#6b7280;line-height:1.8">Content shoot · AI booking bot · Dedicated account manager</div></div></details>
+          <details class="sys-acc"><summary><span>⏱️</span>TIMELINE + BONUS<span class="acc-arrow">›</span></summary><div class="acc-body">
+            <div style="font-size:12px;color:#9ca3af;line-height:1.5;margin-bottom:8px">10–14 business days from onboarding to ads live.</div>
+            <div style="display:flex;gap:8px;align-items:center"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e5e7eb">First month of CRM — $197 value</span></div>
+          </div></details>
+
+
+        </div>
+
+        <!-- DONE FOR YOU -->
+        <div style="background:rgba(168,85,247,0.04);border:1px solid rgba(168,85,247,0.35);border-radius:12px;padding:20px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#16a34a,#a855f7)"></div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c084fc;margin-bottom:6px">DONE FOR YOU</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:#c084fc">$</span>7,450</div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:8px">Inc. GST — One-Time Payment</div>
+
+          <div style="font-size:13px;font-weight:700;color:#e9d5ff;margin-bottom:12px;padding:8px 12px;background:rgba(168,85,247,0.06);border-radius:6px;border-left:3px solid rgba(168,85,247,0.6)">⏱ Ads live 3–7 business days from onboarding call</div>
+
+          <details class="sys-acc"><summary><span>📦</span>DELIVERABLES<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Full CRM build + extra customisation</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Calendars connected + synced</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Skool — 6 months access</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Meta campaign — 4 ads (2 video + 2 static)</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Professional content shoot (Sydney)</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Custom landing page + quote estimator</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>AI booking bot — 25% more bookings</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Brand kit + company profile</div>
+          </div></details>
+          <details class="sys-acc"><summary><span>🛡️</span>SUPPORT<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Dedicated 1-on-1 client manager</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Fortnightly creative check-ins</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Onboarding call + client portal + group calls</div>
+          </div></details>
+          <details class="sys-acc"><summary style="color:#6b7280"><span>–</span>NOT INCLUDED<span class="acc-arrow">›</span></summary><div class="acc-body"><div style="font-size:11px;color:#6b7280;line-height:1.8">Ongoing monthly management · Paid ad spend</div></div></details>
+          <details class="sys-acc"><summary><span>⏱️</span>TIMELINE + BONUS<span class="acc-arrow">›</span></summary><div class="acc-body">
+            <div style="font-size:12px;color:#9ca3af;line-height:1.5;margin-bottom:8px">3–7 business days from onboarding to ads live.</div>
+            <div style="display:flex;gap:8px;align-items:center;margin-bottom:5px"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e9d5ff">First month of CRM — $197 value</span></div>
+            <div style="display:flex;gap:8px;align-items:center"><span style="background:#7c3aed;color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e9d5ff">First month of management — $2,000 value</span></div>
+          </div></details>
+
+
+        </div>
+
+      </div>
+
+    `;
+  } else {
+    const pointsHTML = s.points.map(p => `
+      <div class="point">
+        <div class="point-dot"></div>
+        <div class="point-text">${p.text}</div>
+      </div>
+    `).join('');
+
+    const galleryHTML = s.gallery ? `
+      <div class="cs-gallery">
+        ${s.gallery.map(g => `
+          <div class="cs-shot">
+            <img src="${g.src}" alt="${g.cap}" loading="lazy" />
+            <div class="cs-cap">${g.cap}</div>
+          </div>
+        `).join('')}
+      </div>
+    ` : '';
+
+    document.getElementById('slideContent').innerHTML = `
+      <div class="slide-eyebrow">${s.eyebrow}</div>
+      <div class="slide-title">${s.title} <span>${s.titleAccent}</span></div>
+      <div class="slide-tagline">${s.tagline}</div>
+      <div class="slide-points">${pointsHTML}</div>
+      ${galleryHTML}
+    `;
+  }
+
+  // Action bar
+  const actionEl = document.getElementById('slideAction');
+  if (s.action) {
+    actionEl.style.display = 'flex';
+    actionEl.innerHTML = `
+      <div class="action-label">Ready to show the visual flow?</div>
+      <button class="btn btn-${s.action.type}" onclick="openLink('${s.action.url}')">
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+        ${s.action.label}
+      </button>
+    `;
+  } else {
+    actionEl.style.display = 'none';
+  }
+
+  // Talking points removed
+}
+
+async function sendSummaryEmail() {
+  const input = document.getElementById('summaryEmail');
+  const btn = document.querySelector('.btn-send-email');
+  const msg = document.getElementById('emailSentMsg');
+  const errMsg = document.getElementById('emailErrMsg');
+  if (!input || !input.value.includes('@')) {
+    input.style.borderColor = '#ef4444';
+    setTimeout(() => input.style.borderColor = '', 1500);
+    return;
+  }
+  btn.disabled = true;
+  btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Sending...';
+  try {
+    const res = await fetch('https://client-portal-production-58bf.up.railway.app/api/send-summary', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email: input.value.trim() })
+    });
+    const data = await res.json();
+    if (data.ok) {
+      input.disabled = true;
+      btn.textContent = 'Sent ✓';
+      if (msg) msg.style.display = 'block';
+      if (errMsg) errMsg.style.display = 'none';
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Summary';
+      if (errMsg) { errMsg.textContent = 'Failed to send - try again.'; errMsg.style.display = 'block'; }
+    }
+  } catch (e) {
+    btn.disabled = false;
+    btn.innerHTML = '<svg viewBox="0 0 24 24" style="width:13px;height:13px;stroke:currentColor;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg> Send Summary';
+    if (errMsg) { errMsg.textContent = 'Network error - please try again.'; errMsg.style.display = 'block'; }
+  }
+}
+
+function setPrice(tier) {
+  const display = document.getElementById('pricing-display');
+  const btn3200 = document.getElementById('price-btn-3200');
+  const btn4500 = document.getElementById('price-btn-4500');
+  if (!display) return;
+  // Reset both buttons
+  [btn3200, btn4500].forEach(b => {
+    b.style.border = '2px solid var(--border)';
+    b.style.background = 'var(--dark3)';
+    b.style.color = 'var(--muted)';
+  });
+  if (tier === '3200') {
+    display.innerHTML = '<span>$</span>3,520';
+    btn3200.style.border = '2px solid var(--green)';
+    btn3200.style.background = 'rgba(22,163,74,0.12)';
+    btn3200.style.color = 'var(--green-light)';
+  } else {
+    display.innerHTML = '<span>$</span>4,950';
+    btn4500.style.border = '2px solid var(--green)';
+    btn4500.style.background = 'rgba(22,163,74,0.12)';
+    btn4500.style.color = 'var(--green-light)';
+  }
+  // Reveal price
+  display.style.filter = 'blur(0px)';
+  display.style.userSelect = 'auto';
+
+  // Toggle excluded items for Starter ($3520)
+  const excluded = ['content-shoot', 'quote-estimator'];
+  excluded.forEach(key => {
+    const item = document.getElementById('vi-' + key);
+    const check = document.getElementById('vc-' + key);
+    if (!item || !check) return;
+    if (tier === '3200') {
+      item.style.opacity = '0.5';
+      item.style.borderLeft = '3px solid #ef4444';
+      check.textContent = '✕';
+      check.style.background = 'rgba(239,68,68,0.2)';
+      check.style.color = '#fca5a5';
+    } else {
+      item.style.opacity = '1';
+      item.style.borderLeft = '';
+      check.textContent = '✓';
+      check.style.background = '';
+      check.style.color = '';
+    }
+  });
+}
+
+function copyHook(idx) {
+  const h = hookTemplates[idx];
+  const btn = document.getElementById('hook-btn-' + idx);
+  navigator.clipboard.writeText(h.template).then(() => {
+    btn.textContent = 'Copied ✓';
+    btn.style.background = 'rgba(22,163,74,0.25)';
+    btn.style.borderColor = 'var(--green)';
+    btn.style.color = '#4ade80';
+    setTimeout(() => {
+      btn.textContent = 'Copy';
+      btn.style.background = 'rgba(22,163,74,0.1)';
+      btn.style.borderColor = 'rgba(22,163,74,0.25)';
+      btn.style.color = 'var(--green-light)';
+    }, 2200);
+  });
+}
+
+function nextSlide() {
+  const idx = slideOrder.indexOf(currentSlide);
+  if (idx < slideOrder.length - 1) showSlide(slideOrder[idx + 1]);
+}
+
+function prevSlide() {
+  const idx = slideOrder.indexOf(currentSlide);
+  if (idx > 0) showSlide(slideOrder[idx - 1]);
+}
+
+// Keyboard nav
+document.addEventListener('keydown', e => {
+  if (document.getElementById('slide').style.display === 'flex') {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown') nextSlide();
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') prevSlide();
+  }
+});
+</script>
+</body>
+</html>

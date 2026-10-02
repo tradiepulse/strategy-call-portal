@@ -858,40 +858,6 @@
     </div>
   </div>
 </div>
-<!-- Ad Creative Modal -->
-<div class="modal-overlay" id="modal-adcreative" onclick="closeModal('adcreative')">
-  <div class="modal-box wide" onclick="event.stopPropagation()" style="max-width:780px">
-    <button class="modal-close" onclick="closeModal('adcreative')">×</button>
-    <div class="modal-eyebrow">Ad Creative</div>
-    <div class="modal-title">CLIENT EXAMPLES</div>
-    <div class="modal-sub">Real ads built for active clients — video & static creative.</div>
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
-
-      <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)"><div style="position:relative;aspect-ratio:9/10;background:#000">
-        <iframe src="https://drive.google.com/file/d/1_hyGARGByCSQm3OuVYQlWFTY6Y-NCK3O/preview" allow="autoplay" allowfullscreen style="width:100%;height:100%;border:none;display:block"></iframe>
-        </div><div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">NebWest Construction — Video Ad</div>
-      </div>
-
-      <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)"><div style="position:relative;aspect-ratio:9/10;background:#000">
-        <iframe src="https://drive.google.com/file/d/1fNe61Vm1pvCb1wgSXYGSmQPewRAsVItM/preview" allow="autoplay" allowfullscreen style="width:100%;height:100%;border:none;display:block"></iframe>
-        </div><div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">Goanna Electrical — Video Ad</div>
-      </div>
-
-      <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)"><div style="position:relative;aspect-ratio:9/10;background:#000">
-        <img src="https://drive.google.com/thumbnail?id=1ExK8NUbrR1HU4SSJAmKyWO1VLqQ_lc3S&sz=w1000" alt="Welcome Home Reno Services Ad" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" />
-        </div><div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">Welcome Home Reno — Services Ad</div>
-      </div>
-
-      <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)"><div style="position:relative;aspect-ratio:9/10;background:#000">
-        <img src="https://drive.google.com/thumbnail?id=16xS1hPXkot2p55FpjBRboycc9Gho-Lox&sz=w1000" alt="Gold Standard Roofing Before and After Ad" loading="lazy" style="width:100%;height:100%;object-fit:cover;display:block" />
-        </div><div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">Gold Standard Roofing — Before &amp; After Ad</div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-
 <!-- ══════════ SLIDE VIEW ══════════ -->
 <div id="slide">
   <button class="sys-back" onclick="goHome()">← Home</button>
@@ -1244,15 +1210,29 @@ function showSlide(key) {
 
       </div>
 
+      <!-- CLIENT EXAMPLES -->
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-top:8px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(31,138,99,0.2)">CLIENT EXAMPLES</div>
+      <div style="font-size:11px;color:var(--muted);margin-bottom:14px">Real ads built for active clients - video &amp; static creative.</div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin-bottom:24px">
+        <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)">
+          <div style="position:relative;aspect-ratio:4/5;background:#000"><iframe src="https://drive.google.com/file/d/1_hyGARGByCSQm3OuVYQlWFTY6Y-NCK3O/preview" allow="autoplay" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;display:block"></iframe></div>
+          <div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">NebWest Construction — Video Ad</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)">
+          <div style="position:relative;aspect-ratio:4/5;background:#000"><iframe src="https://drive.google.com/file/d/1fNe61Vm1pvCb1wgSXYGSmQPewRAsVItM/preview" allow="autoplay" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;display:block"></iframe></div>
+          <div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">Goanna Electrical — Video Ad</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)">
+          <div style="position:relative;aspect-ratio:4/5;background:#000"><iframe src="https://drive.google.com/file/d/1ExK8NUbrR1HU4SSJAmKyWO1VLqQ_lc3S/preview" allow="autoplay" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;display:block"></iframe></div>
+          <div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">Welcome Home Reno — Services Ad</div>
+        </div>
+        <div style="border-radius:10px;overflow:hidden;background:#000;border:1px solid var(--border)">
+          <div style="position:relative;aspect-ratio:4/5;background:#000"><iframe src="https://drive.google.com/file/d/16xS1hPXkot2p55FpjBRboycc9Gho-Lox/preview" allow="autoplay" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;display:block"></iframe></div>
+          <div style="padding:9px 12px;background:var(--dark2);font-size:11px;font-weight:700;color:#fff;letter-spacing:0.5px">Gold Standard Roofing — Before &amp; After Ad</div>
+        </div>
+      </div>
     `;
-    document.getElementById('slideAction').style.display = 'flex';
-    document.getElementById('slideAction').innerHTML = `
-      <div class="action-label">See real ads we've built for active clients?</div>
-      <button class="btn btn-green" onclick="showModal('adcreative')">
-        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-        Client Examples
-      </button>
-    `;
+    document.getElementById('slideAction').style.display = 'none';
     return;
   }
 

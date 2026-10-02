@@ -106,6 +106,10 @@
   .sys-back:hover { color: var(--text); border-color: var(--green); }
   #slide.system-only .sys-back { display: block; }
   .sys-gbox { min-height: 104px; }
+  .onb-btn { width: 100%; padding: 20px 24px; border: none; border-radius: 10px; background: #16a34a; color: #fff; font-family: 'Inter', sans-serif; font-size: 17px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: background 0.2s, transform 0.2s; }
+  .onb-btn:hover { background: #15803d; transform: translateY(-1px); }
+  .onb-btn.own { background: #9333ea; }
+  .onb-btn.own:hover { background: #7e22ce; }
   details.sys-acc > summary { display: flex; align-items: center; gap: 8px; }
   .sys-sec { border-top: 1px solid var(--border); padding: 12px 0 4px; }
   .sys-sec-h { display: flex; align-items: center; gap: 8px; font-size: 11px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; }
@@ -1222,10 +1226,7 @@ function showSlide(key) {
             <div style="display:flex;gap:8px;align-items:flex-start;color:#6b7280;font-size:12px"><span style="color:#6b7280;flex-shrink:0">✗</span>Social media managed for you</div>
           </div></details>
           <div style="height:12px"></div>
-          <button class="btn btn-green" style="width:100%;justify-content:center" onclick="openLink('https://tradiepulse.com.au/order-page-meta-ads-mgt')">
-            See full details &amp; get started
-            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+          <button class="onb-btn" onclick="openLink('https://tradiepulse.com.au/order-page-meta-ads-mgt')">Book Your Onboarding</button>
         </div>
 
         <!-- OWN IT -->
@@ -1270,6 +1271,8 @@ function showSlide(key) {
             <div style="font-size:12px;color:#9ca3af;line-height:1.5;margin-bottom:8px">3–7 business days from onboarding to ads live.</div>
             <div style="display:flex;gap:8px;align-items:center"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e9d5ff">First month of CRM — $197 value</span></div>
           </div></details>
+          <div style="height:12px"></div>
+          <button class="onb-btn own" onclick="openLink('https://api.leadconnectorhq.com/widget/bookings/checkin/tp')">Book Your Onboarding</button>
         </div>
 
       </div>

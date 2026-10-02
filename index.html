@@ -4,20 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Tradie Pulse - Strategy Call</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
 
   :root {
-    --green: #16A34A;
-    --green-light: #4ade80;
-    --dark: #0d1117;
-    --dark2: #111827;
-    --dark3: #1f2937;
-    --dark4: #374151;
-    --text: #f9fafb;
-    --muted: #9ca3af;
-    --border: #1f2937;
+    --green: #1f8a63;
+    --green-light: #5fc9a0;
+    --gold: #c9a96e;
+    --dark: #08090a;
+    --dark2: #0f1112;
+    --dark3: #16191a;
+    --dark4: #2a2e30;
+    --text: #f4efe6;
+    --muted: #9a958a;
+    --border: #23262a;
   }
 
   html, body {
@@ -30,34 +31,64 @@
   }
 
 
-  /* ── HOME: rmn-row ── */
-  #home { align-items: center; justify-content: center; gap: clamp(20px, 4.5vh, 52px); padding: 24px 32px; overflow-y: auto; }
-  .hm-title { font-family: 'Bebas Neue', sans-serif; font-size: clamp(40px, 6.5vw, 84px); line-height: 1; color: var(--text); text-align: center; }
-  .hm-title span { color: var(--green); }
-  .rmn-row { display: flex; align-items: flex-end; justify-content: center; gap: clamp(24px, 6vw, 96px); width: 100%; max-width: 1000px; }
-  .rmn-col { flex: 1; max-width: 260px; display: flex; flex-direction: column; align-items: center; cursor: pointer; transition: transform 0.18s ease, filter 0.18s ease; }
-  .rmn-col:hover { transform: translateY(-5px); filter: drop-shadow(0 0 16px rgba(34,197,94,0.45)); }
-  .rmn-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(24px, 2.8vw, 36px); letter-spacing: 3px; color: #fff; margin-bottom: 12px; text-align: center; transition: color 0.18s; }
-  .rmn-col:hover .rmn-name { color: var(--green-light); }
-  .pc-cap { width: 100%; display: flex; flex-direction: column; align-items: center; position: relative; }
-  .pc-abacus { width: 100%; height: 16px; background: linear-gradient(#ffffff, #e2e8f0); border-radius: 2px; box-shadow: 0 2px 0 #cbd5e1; }
-  .pc-echinus { width: 82%; height: 16px; background: linear-gradient(#f1f5f9, #cbd5e1); border-radius: 0 0 50% 50% / 0 0 100% 100%; }
-  .pc-cap::before, .pc-cap::after { content: ''; position: absolute; top: 12px; width: 22px; height: 22px; border-radius: 50%; background: radial-gradient(circle at 50% 50%, #cbd5e1 0 4px, #f8fafc 5px 8px, #cbd5e1 9px 10px, #f8fafc 11px); box-shadow: 0 1px 2px rgba(0,0,0,0.3); }
-  .pc-cap::before { left: 4%; }
-  .pc-cap::after { right: 4%; }
-  .pc-shaft { width: 70%; height: clamp(150px, 27vh, 280px); display: flex; align-items: flex-start; justify-content: center; padding-top: 18px;
-    background: repeating-linear-gradient(90deg, rgba(0,0,0,0) 0 9px, rgba(100,116,139,0.18) 9px 11px),
-                linear-gradient(90deg, #cbd5e1 0%, #f8fafc 22%, #ffffff 50%, #e2e8f0 80%, #94a3b8 100%); }
-  .pc-shaft span { font-family: Georgia, 'Times New Roman', serif; font-size: 26px; font-weight: 700; color: #64748b; letter-spacing: 2px; }
-  .pc-base { width: 100%; display: flex; flex-direction: column; align-items: center; }
-  .pc-torus { width: 82%; height: 14px; background: linear-gradient(#e2e8f0, #cbd5e1); border-radius: 50% 50% 0 0 / 100% 100% 0 0; }
-  .pc-plinth { width: 100%; height: 20px; background: linear-gradient(#ffffff, #cbd5e1); border-radius: 2px; box-shadow: 0 3px 0 #94a3b8; }
+  /* ── HOME ── */
+  #home { align-items: center; justify-content: center; gap: clamp(18px, 3.5vh, 40px); padding: 28px 32px; overflow-y: auto;
+    background: radial-gradient(ellipse at 50% -10%, rgba(201,169,110,0.10), transparent 55%), var(--dark); }
+  .hm-title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; font-size: clamp(38px, 5.6vw, 72px); line-height: 1.02; letter-spacing: 4px; color: var(--text); text-align: center; text-transform: uppercase; }
+  .hm-title span { color: var(--gold); }
+  .stack { width: 100%; max-width: 760px; display: flex; flex-direction: column; gap: 12px; }
+  .sec { border: 1px solid rgba(201,169,110,0.28); border-radius: 6px; background: linear-gradient(180deg, #131516, #0e1011); transition: border-color 0.25s, box-shadow 0.25s; }
+  .sec:hover, .sec.open { border-color: rgba(201,169,110,0.65); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+  .sec-head { width: 100%; display: flex; align-items: center; gap: 22px; padding: 22px 28px; background: none; border: none; color: var(--text); cursor: pointer; text-align: left; font-family: inherit; }
+  .sec-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 22px; font-weight: 600; color: var(--gold); width: 34px; letter-spacing: 1px; }
+  .sec-name { flex: 1; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 34px; font-weight: 600; letter-spacing: 5px; text-transform: uppercase; }
+  .sec-chev { font-size: 26px; font-weight: 300; color: var(--gold); transition: transform 0.25s; }
+  .sec.open .sec-chev { transform: rotate(45deg); }
+  .sec-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+  .sec.open .sec-body { grid-template-rows: 1fr; }
+  .sec-inner { overflow: hidden; display: flex; flex-direction: column; gap: 8px; padding: 0 20px; }
+  .sec.open .sec-inner { padding: 0 20px 20px; }
+  .step { --c: #3fae86; display: flex; align-items: center; gap: 16px; padding: 14px 18px; border-radius: 5px; text-decoration: none; color: var(--text);
+    background: linear-gradient(90deg, color-mix(in srgb, var(--c) 22%, #0e1011), #0e1011 85%); border: 1px solid color-mix(in srgb, var(--c) 45%, transparent); border-left: 3px solid var(--c); transition: transform 0.2s, border-color 0.2s; }
+  .step:hover { transform: translateX(4px); border-color: var(--c); }
+  .step.c1 { --c: #3fae86; } .step.c2 { --c: #c9a96e; } .step.c3 { --c: #6f8fb8; } .step.c4 { --c: #b3677a; }
+  .step-n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; font-weight: 600; color: var(--c); width: 24px; text-align: center; }
+  .step-txt { flex: 1; display: flex; flex-direction: column; gap: 2px; }
+  .step-t { font-size: 15px; font-weight: 600; letter-spacing: 0.4px; }
+  .step-d { font-size: 11.5px; color: var(--muted); }
+  .step-arrow { color: var(--c); font-size: 18px; }
 
-  /* ── HOME: Our System button ── */
-  .sys-btn { width: 100%; max-width: 640px; display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 16px 28px; border-radius: 14px; border: 2px solid var(--green); background: rgba(22,163,74,0.12); color: var(--text); cursor: pointer; font-family: 'Inter', sans-serif; transition: all 0.18s ease; }
-  .sys-btn:hover { background: rgba(22,163,74,0.24); transform: translateY(-2px); }
-  .sys-btn-label { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green-light); }
-  .sys-btn-row { width: 100%; display: flex; justify-content: space-evenly; align-items: center; font-size: 24px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+  .sys-btn { width: 100%; max-width: 760px; padding: 20px 28px; border-radius: 6px; border: 1px solid rgba(95,201,160,0.55); cursor: pointer; font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; font-weight: 600; letter-spacing: 6px; text-transform: uppercase; color: #eafaf2;
+    background: linear-gradient(180deg, #1f7a5b, #145340); box-shadow: 0 10px 34px rgba(20,83,64,0.45); transition: all 0.2s ease; }
+  .sys-btn:hover { background: linear-gradient(180deg, #25906b, #176049); transform: translateY(-2px); }
+
+
+  /* ── Example lead form ── */
+  .qual-split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: start; }
+  .lf-card { background: #f7f3ea; color: #1b1d1f; border-radius: 10px; padding: 26px 26px 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.55); border-top: 3px solid var(--gold); pointer-events: none; user-select: none; }
+  .lf-tag { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: #8a6d36; margin-bottom: 8px; }
+  .lf-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 30px; font-weight: 700; line-height: 1.1; }
+  .lf-sub { font-size: 11.5px; color: #6b6558; margin: 4px 0 16px; }
+  .lf-row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .lf-f { margin-bottom: 10px; }
+  .lf-f label { display: block; font-size: 10px; font-weight: 600; letter-spacing: 0.6px; text-transform: uppercase; color: #6b6558; margin-bottom: 4px; }
+  .lf-i { background: #fff; border: 1px solid #ddd6c6; border-radius: 5px; padding: 9px 11px; font-size: 12.5px; color: #2a2d30; }
+  .lf-sel { position: relative; } .lf-sel::after { content: '\25BE'; position: absolute; right: 11px; top: 9px; color: #8a8576; }
+  .lf-ta { min-height: 54px; color: #8a8576; }
+  .lf-btn { margin-top: 6px; text-align: center; background: linear-gradient(180deg, #1f7a5b, #145340); color: #fff; font-size: 13px; font-weight: 600; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px; border-radius: 5px; }
+
+  /* ── Luxury finish ── */
+  body, html { -webkit-font-smoothing: antialiased; letter-spacing: 0.01em; }
+  .modal-overlay { background: rgba(4,5,6,0.82); backdrop-filter: blur(6px); }
+  .modal-box { background: linear-gradient(180deg, #131516, #0d0f10); border: 1px solid rgba(201,169,110,0.3); border-radius: 8px; box-shadow: 0 40px 100px rgba(0,0,0,0.7); }
+  .modal-title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; letter-spacing: 3px; }
+  .modal-eyebrow, .slide-eyebrow { color: var(--gold) !important; letter-spacing: 3px; }
+  .modal-link-btn { border-radius: 5px; border: 1px solid rgba(201,169,110,0.2); background: #111314; }
+  .modal-link-btn:hover { border-color: var(--gold); background: #15181a; }
+  .slide-title { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 600; letter-spacing: 3px; }
+  .slide-title span { color: var(--gold); }
+  .btn-green { background: linear-gradient(180deg, #1f7a5b, #145340); border: 1px solid rgba(95,201,160,0.4); letter-spacing: 0.6px; }
+  .slide-header, .slide-sidebar { background: #0b0c0d; border-color: rgba(201,169,110,0.15); }
 
   /* ── Our System page: no header / sidebar ── */
   #slide.system-only .slide-header, #slide.system-only .slide-sidebar { display: none; }
@@ -74,9 +105,9 @@
   .tile.teal .tile-icon svg { stroke: #2dd4bf; }
 
   /* ── PURPLE / HANDOVER TILE ── */
-  .tile.purple { border-color: #7c3aed; }
-  .tile.purple:hover { border-color: #a78bfa; background: rgba(124,58,237,0.1); }
-  .tile.purple .tile-icon svg { stroke: #a78bfa; }
+  .tile.purple { border-color: #a8884a; }
+  .tile.purple:hover { border-color: #c9a96e; background: rgba(168,136,74,0.1); }
+  .tile.purple .tile-icon svg { stroke: #c9a96e; }
   .tile.purple .tile-name { color: #f5f3ff; }
 
   /* ── ACCORDION SECTIONS ── */
@@ -93,16 +124,16 @@
   details.sys-acc > .acc-body { padding-bottom: 6px; }
 
   /* ── SKOOL TILE ── */
-  .tile.skool { border-color: #7c3aed; }
-  .tile.skool:hover { border-color: #a78bfa; background: rgba(124,58,237,0.08); }
-  .tile.skool::before { background: #a855f7; }
-  .tile.skool .tile-icon { background: rgba(124,58,237,0.12); }
-  .tile.skool .tile-icon svg { stroke: #c084fc; }
+  .tile.skool { border-color: #a8884a; }
+  .tile.skool:hover { border-color: #c9a96e; background: rgba(168,136,74,0.08); }
+  .tile.skool::before { background: #c9a96e; }
+  .tile.skool .tile-icon { background: rgba(168,136,74,0.12); }
+  .tile.skool .tile-icon svg { stroke: #d9bd86; }
 
   /* ── HANDOVER MODAL ── */
   .handover-box {
     background: var(--dark2);
-    border: 1px solid #7c3aed;
+    border: 1px solid #a8884a;
     border-radius: 16px;
     padding: 28px 32px;
     width: 92%;
@@ -115,18 +146,18 @@
   }
   .handover-box::-webkit-scrollbar { width: 6px; }
   .handover-box::-webkit-scrollbar-thumb { background: #374151; border-radius: 3px; }
-  .ho-title { font-family: 'Bebas Neue', sans-serif; font-size: 26px; letter-spacing: 2px; color: #f5f3ff; margin-bottom: 4px; }
+  .ho-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 26px; letter-spacing: 2px; color: #f5f3ff; margin-bottom: 4px; }
   .ho-subtitle { font-size: 12px; color: #9ca3af; margin-bottom: 24px; }
   .ho-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
   .ho-full { grid-column: 1 / -1; }
-  .ho-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #a78bfa; margin: 18px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(124,58,237,0.25); }
+  .ho-section-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; color: #c9a96e; margin: 18px 0 12px; padding-bottom: 6px; border-bottom: 1px solid rgba(168,136,74,0.25); }
   .ho-field label { display: block; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: #6b7280; margin-bottom: 5px; }
   .ho-field input, .ho-field select, .ho-field textarea {
     width: 100%; background: #0d1117; border: 1px solid #374151; border-radius: 8px;
     padding: 9px 12px; font-size: 13px; color: #f9fafb; font-family: 'Inter', sans-serif;
     outline: none; transition: border-color 0.15s;
   }
-  .ho-field input:focus, .ho-field select:focus, .ho-field textarea:focus { border-color: #7c3aed; }
+  .ho-field input:focus, .ho-field select:focus, .ho-field textarea:focus { border-color: #a8884a; }
   .ho-field textarea { resize: vertical; min-height: 60px; }
   .ho-field select option { background: #1f2937; }
   .ho-toggle-row { display: flex; gap: 8px; }
@@ -135,12 +166,12 @@
     padding: 8px 12px; font-size: 12px; font-weight: 700; color: #9ca3af;
     cursor: pointer; text-align: center; transition: all 0.15s; user-select: none;
   }
-  .ho-toggle:hover { border-color: #7c3aed; color: #c4b5fd; }
-  .ho-toggle.yes { border-color: #16A34A; background: rgba(22,163,74,0.1); color: #4ade80; }
+  .ho-toggle:hover { border-color: #a8884a; color: #d6c08f; }
+  .ho-toggle.yes { border-color: #16A34A; background: rgba(31,138,99,0.1); color: #5fc9a0; }
   .ho-toggle.no { border-color: #ef4444; background: rgba(239,68,68,0.08); color: #fca5a5; }
   .ho-divider { height: 1px; background: #1f2937; margin: 20px 0; }
   .ho-copy-btn {
-    width: 100%; background: #7c3aed; color: #fff; border: none; border-radius: 10px;
+    width: 100%; background: #a8884a; color: #fff; border: none; border-radius: 10px;
     padding: 14px; font-size: 14px; font-weight: 700; cursor: pointer; margin-top: 20px;
     transition: all 0.15s; letter-spacing: 0.3px;
   }
@@ -164,12 +195,12 @@
   .home-logo { display: flex; align-items: center; gap: 12px; }
   .logo-box { width: 38px; height: 38px; background: var(--green); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
   .logo-box svg { width: 22px; height: 22px; }
-  .logo-name { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text); letter-spacing: 1px; }
+  .logo-name { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; color: var(--text); letter-spacing: 1px; }
   .logo-name span { color: var(--green); }
 
   .home-meta { text-align: right; }
   .home-meta-label { font-size: 10px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
-  .home-meta-title { font-family: 'Bebas Neue', sans-serif; font-size: 18px; color: var(--green-light); margin-top: 2px; }
+  .home-meta-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 18px; color: var(--green-light); margin-top: 2px; }
 
   .home-hero {
     background: linear-gradient(135deg, #0a150a 0%, var(--dark2) 60%, #111a11 100%);
@@ -179,7 +210,7 @@
   }
 
   .home-hero-ey { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green-light); margin-bottom: 8px; }
-  .home-hero-h { font-family: 'Bebas Neue', sans-serif; font-size: 52px; line-height: 1; color: var(--text); }
+  .home-hero-h { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 52px; line-height: 1; color: var(--text); }
   .home-hero-h span { color: var(--green); }
   .home-hero-sub { font-size: 13px; color: var(--muted); margin-top: 10px; max-width: 500px; line-height: 1.6; }
 
@@ -245,7 +276,7 @@
     display: flex; align-items: center; justify-content: center;
     margin-bottom: 14px;
     transition: transform 0.18s ease;
-    background: rgba(22,163,74,0.12);
+    background: rgba(31,138,99,0.12);
   }
 
   .tile.external .tile-icon { background: rgba(59,130,246,0.12); }
@@ -270,7 +301,7 @@
   .tile-badge.live { background: rgba(59,130,246,0.15); color: #60a5fa; border: 1px solid rgba(59,130,246,0.3); }
   .tile-badge.live-yellow { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
   .tile-badge.live-orange { background: rgba(249,115,22,0.15); color: #fb923c; border: 1px solid rgba(249,115,22,0.3); }
-  .tile-badge.demo { background: rgba(22,163,74,0.15); color: var(--green-light); border: 1px solid rgba(22,163,74,0.3); }
+  .tile-badge.demo { background: rgba(31,138,99,0.15); color: var(--green-light); border: 1px solid rgba(31,138,99,0.3); }
 
   /* ── MODAL PICKER ── */
   .modal-overlay {
@@ -338,7 +369,7 @@
   .modal-close:hover { background: var(--dark4); color: var(--text); }
 
   .modal-eyebrow { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 8px; }
-  .modal-title { font-family: 'Bebas Neue', sans-serif; font-size: 32px; color: var(--text); margin-bottom: 6px; }
+  .modal-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 32px; color: var(--text); margin-bottom: 6px; }
   .modal-sub { font-size: 12px; color: var(--muted); margin-bottom: 24px; line-height: 1.5; }
 
   .modal-links { display: flex; flex-direction: column; gap: 10px; }
@@ -356,13 +387,13 @@
   }
 
   .modal-link-btn:hover {
-    background: rgba(22,163,74,0.08);
+    background: rgba(31,138,99,0.08);
     border-color: var(--green);
   }
 
   .modal-link-icon {
     width: 38px; height: 38px; border-radius: 8px;
-    background: rgba(22,163,74,0.12);
+    background: rgba(31,138,99,0.12);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0;
   }
@@ -443,7 +474,7 @@
   }
 
   .sidebar-item:hover { background: var(--dark3); }
-  .sidebar-item.active { border-left-color: var(--green); background: rgba(22,163,74,0.08); }
+  .sidebar-item.active { border-left-color: var(--green); background: rgba(31,138,99,0.08); }
   .sidebar-item.active .si-name { color: var(--green-light); }
 
   .si-icon {
@@ -452,7 +483,7 @@
     background: var(--dark3); flex-shrink: 0;
   }
   .si-icon svg { width: 16px; height: 16px; stroke: var(--muted); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-  .sidebar-item.active .si-icon { background: rgba(22,163,74,0.15); }
+  .sidebar-item.active .si-icon { background: rgba(31,138,99,0.15); }
   .sidebar-item.active .si-icon svg { stroke: var(--green-light); }
 
   .si-name { font-size: 12px; font-weight: 600; color: var(--muted); }
@@ -468,7 +499,7 @@
   }
 
   .slide-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
-  .slide-title { font-family: 'Bebas Neue', sans-serif; font-size: 56px; line-height: 1; color: var(--text); margin-bottom: 16px; }
+  .slide-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 56px; line-height: 1; color: var(--text); margin-bottom: 16px; }
   .slide-title span { color: var(--green); }
   .slide-tagline { font-size: 16px; color: var(--muted); line-height: 1.65; max-width: 580px; margin-bottom: 36px; }
 
@@ -536,29 +567,29 @@
   }
 
   .pillar-num {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 48px; color: rgba(22,163,74,0.15);
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-size: 48px; color: rgba(31,138,99,0.15);
     position: absolute; top: 10px; right: 14px;
     line-height: 1;
   }
 
   .pillar-icon {
     width: 48px; height: 48px; border-radius: 10px;
-    background: rgba(22,163,74,0.12);
+    background: rgba(31,138,99,0.12);
     display: flex; align-items: center; justify-content: center;
     margin: 0 auto 14px;
   }
   .pillar-icon svg { width: 22px; height: 22px; stroke: var(--green); fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
-  .pillar-title { font-family: 'Bebas Neue', sans-serif; font-size: 24px; color: var(--text); margin-bottom: 10px; }
+  .pillar-title { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 24px; color: var(--text); margin-bottom: 10px; }
   .pillar-items { list-style: none; text-align: left; }
   .pillar-items li { font-size: 11.5px; color: var(--muted); padding: 5px 0; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
   .pillar-items li:last-child { border-bottom: none; }
   .pillar-items li::before { content: ''; width: 5px; height: 5px; background: var(--green); border-radius: 50%; flex-shrink: 0; }
 
   .system-tagline {
-    background: rgba(22,163,74,0.06);
-    border: 1px solid rgba(22,163,74,0.2);
+    background: rgba(31,138,99,0.06);
+    border: 1px solid rgba(31,138,99,0.2);
     border-radius: 10px;
     padding: 18px 24px;
     font-size: 14px;
@@ -589,7 +620,7 @@
   }
   .value-check {
     width: 18px; height: 18px; border-radius: 50%;
-    background: rgba(22,163,74,0.2); color: var(--green-light);
+    background: rgba(31,138,99,0.2); color: var(--green-light);
     display: flex; align-items: center; justify-content: center;
     flex-shrink: 0; font-size: 10px; font-weight: 700; margin-top: 1px;
   }
@@ -598,14 +629,14 @@
   .value-text span { color: var(--muted); font-size: 11px; }
 
   .pricing-block {
-    background: linear-gradient(135deg, rgba(22,163,74,0.08) 0%, rgba(22,163,74,0.03) 100%);
-    border: 2px solid rgba(22,163,74,0.3);
+    background: linear-gradient(135deg, rgba(31,138,99,0.08) 0%, rgba(31,138,99,0.03) 100%);
+    border: 2px solid rgba(31,138,99,0.3);
     border-radius: 12px; padding: 20px 24px; margin-bottom: 20px;
     display: flex; align-items: center; gap: 24px;
   }
   .pricing-main { flex: 1; }
   .pricing-label { font-size: 9px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; color: var(--green); margin-bottom: 4px; }
-  .pricing-amount { font-family: 'Bebas Neue', sans-serif; font-size: 52px; color: var(--text); line-height: 1; }
+  .pricing-amount { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 52px; color: var(--text); line-height: 1; }
   .pricing-amount span { font-size: 28px; color: var(--green-light); }
   .pricing-tag { font-size: 11px; color: var(--muted); margin-top: 4px; }
   .pricing-tag strong { color: var(--text); }
@@ -614,7 +645,7 @@
     border-radius: 10px; padding: 14px 18px; text-align: center; min-width: 160px;
   }
   .pricing-ongoing-label { font-size: 9px; font-weight: 700; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
-  .pricing-ongoing-amount { font-family: 'Bebas Neue', sans-serif; font-size: 28px; color: var(--text); line-height: 1; }
+  .pricing-ongoing-amount { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 28px; color: var(--text); line-height: 1; }
   .pricing-ongoing-sub { font-size: 10px; color: var(--muted); margin-top: 3px; }
 
 
@@ -629,149 +660,91 @@
 
   <div class="hm-title">WHAT WE BUILD FOR<br/><span>YOUR BUSINESS</span></div>
 
-  <div class="rmn-row">
-    <div class="rmn-col" onclick="showModal('pillar-attract')">
-      <div class="rmn-name">Attracting</div>
-      <div class="pc-cap"><div class="pc-abacus"></div><div class="pc-echinus"></div></div>
-      <div class="pc-shaft"><span>I</span></div>
-      <div class="pc-base"><div class="pc-torus"></div><div class="pc-plinth"></div></div>
+  <div class="stack">
+    <div class="sec" id="sec-attract">
+      <button class="sec-head" onclick="toggleSec('attract')">
+        <span class="sec-num">I</span>
+        <span class="sec-name">Attracting</span>
+        <span class="sec-chev">+</span>
+      </button>
+      <div class="sec-body"><div class="sec-inner">
+        <a class="step c1" href="#" onclick="showSlide('adideas');return false">
+          <span class="step-n">1</span>
+          <span class="step-txt"><span class="step-t">Ads and Creatives</span><span class="step-d">Examples, formats and what we build</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c2" href="#" onclick="openLink('https://approvals.tradiepulse.org/sales/targeting-map.html');return false">
+          <span class="step-n">2</span>
+          <span class="step-txt"><span class="step-t">Targeting</span><span class="step-d">Live tool - see exactly who we target</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c3" href="#" onclick="openLink('https://adsmanager.facebook.com/adsmanager/reporting/business_view?act=1345893057155434&ads_manager_write_regions=true&business_id=364803359285803&event_source=AUTO_REDIRECT');return false">
+          <span class="step-n">3</span>
+          <span class="step-txt"><span class="step-t">Meta</span><span class="step-d">Live ad account - campaigns, spend and results</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+      </div></div>
     </div>
-    <div class="rmn-col" onclick="showModal('pillar-qualify')">
-      <div class="rmn-name">Qualifying</div>
-      <div class="pc-cap"><div class="pc-abacus"></div><div class="pc-echinus"></div></div>
-      <div class="pc-shaft"><span>II</span></div>
-      <div class="pc-base"><div class="pc-torus"></div><div class="pc-plinth"></div></div>
+    <div class="sec" id="sec-qualify">
+      <button class="sec-head" onclick="toggleSec('qualify')">
+        <span class="sec-num">II</span>
+        <span class="sec-name">Qualifying</span>
+        <span class="sec-chev">+</span>
+      </button>
+      <div class="sec-body"><div class="sec-inner">
+        <a class="step c1" href="#" onclick="showSlide('qualify');return false">
+          <span class="step-n">1</span>
+          <span class="step-txt"><span class="step-t">Qualifying Form</span><span class="step-d">How we filter out time-wasters</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c2" href="#" onclick="showModal('landing');return false">
+          <span class="step-n">2</span>
+          <span class="step-txt"><span class="step-t">Landing Page</span><span class="step-d">Live client landing pages</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c3" href="#" onclick="openLink('https://api.leadconnectorhq.com/widget/bookings/checkin/tp');return false">
+          <span class="step-n">3</span>
+          <span class="step-txt"><span class="step-t">Calendar Booking</span><span class="step-d">Booking calendar example</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c4" href="#" onclick="showModal('estimator');return false">
+          <span class="step-n">4</span>
+          <span class="step-txt"><span class="step-t">Bonus Estimating Tool</span><span class="step-d">Interactive estimators that pre-qualify budget</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+      </div></div>
     </div>
-    <div class="rmn-col" onclick="showModal('pillar-convert')">
-      <div class="rmn-name">Converting</div>
-      <div class="pc-cap"><div class="pc-abacus"></div><div class="pc-echinus"></div></div>
-      <div class="pc-shaft"><span>III</span></div>
-      <div class="pc-base"><div class="pc-torus"></div><div class="pc-plinth"></div></div>
+    <div class="sec" id="sec-convert">
+      <button class="sec-head" onclick="toggleSec('convert')">
+        <span class="sec-num">III</span>
+        <span class="sec-name">Converting</span>
+        <span class="sec-chev">+</span>
+      </button>
+      <div class="sec-body"><div class="sec-inner">
+        <a class="step c1" href="#" onclick="openLink('https://ai.tradiepulse.com.au/v2/location/yUh1SHK3rPrLKuhijyj1/opportunities');return false">
+          <span class="step-n">1</span>
+          <span class="step-txt"><span class="step-t">CRM &amp; Pipeline</span><span class="step-d">Live CRM - every lead, every stage</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c2" href="#" onclick="showModal('branddocs');return false">
+          <span class="step-n">2</span>
+          <span class="step-txt"><span class="step-t">Company Profile &amp; Brand Kit</span><span class="step-d">Real client examples</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+        <a class="step c3" href="#" onclick="openLink('https://www.skool.com/tradiepulse-8644');return false">
+          <span class="step-n">3</span>
+          <span class="step-txt"><span class="step-t">Skool + 6 Months Coaching</span><span class="step-d">Community and coaching included with Own it</span></span>
+          <span class="step-arrow">→</span>
+        </a>
+      </div></div>
     </div>
   </div>
 
-  <button class="sys-btn" onclick="showSlide('system')">
-    <span class="sys-btn-label">Our System</span>
-    <span class="sys-btn-row"><span>Rent it</span><span>or</span><span>Own it</span></span>
-  </button>
+  <button class="sys-btn" onclick="showSlide('system')">Our System</button>
 
 </div>
 
 <!-- ══════════ MODALS ══════════ -->
-
-<!-- Pillar hubs -->
-<div class="modal-overlay" id="modal-pillar-attract" onclick="closeModal('pillar-attract')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('pillar-attract')">×</button>
-    <div class="modal-eyebrow">Pillar 1</div>
-    <div class="modal-title">ATTRACTING</div>
-    <div class="modal-sub">Get in front of the right homeowners in your area.</div>
-    <div class="modal-links">
-      <a class="modal-link-btn" href="#" onclick="goPillarSlide('pillar-attract','adideas');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">1. Ads and Creatives</div>
-          <div class="modal-link-desc">Examples, formats and what we build for tradies</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="openLink('https://approvals.tradiepulse.org/sales/targeting-map.html');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">2. Targeting</div>
-          <div class="modal-link-desc">Live tool - see exactly who we target</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="openLink('https://adsmanager.facebook.com/adsmanager/reporting/business_view?act=1345893057155434&ads_manager_write_regions=true&business_id=364803359285803&event_source=AUTO_REDIRECT');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">3. Meta</div>
-          <div class="modal-link-desc">Live ad account - campaigns, spend and results</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-pillar-qualify" onclick="closeModal('pillar-qualify')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('pillar-qualify')">×</button>
-    <div class="modal-eyebrow">Pillar 2</div>
-    <div class="modal-title">QUALIFYING</div>
-    <div class="modal-sub">Turn clicks into qualified, budget-ready enquiries.</div>
-    <div class="modal-links">
-      <a class="modal-link-btn" href="#" onclick="goPillarSlide('pillar-qualify','qualify');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">1. Qualifying Form</div>
-          <div class="modal-link-desc">How we filter out time-wasters</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="swapModal('pillar-qualify','landing');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">2. Landing Page</div>
-          <div class="modal-link-desc">Live client landing pages</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="openLink('https://api.leadconnectorhq.com/widget/bookings/checkin/tp');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">3. Calendar Booking</div>
-          <div class="modal-link-desc">Booking calendar example</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="swapModal('pillar-qualify','estimator');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">4. Bonus Estimating Tool</div>
-          <div class="modal-link-desc">Interactive estimators that pre-qualify budget</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-    </div>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-pillar-convert" onclick="closeModal('pillar-convert')">
-  <div class="modal-box" onclick="event.stopPropagation()">
-    <button class="modal-close" onclick="closeModal('pillar-convert')">×</button>
-    <div class="modal-eyebrow">Pillar 3</div>
-    <div class="modal-title">CONVERTING</div>
-    <div class="modal-sub">Follow up, look the part and close the job.</div>
-    <div class="modal-links">
-      <a class="modal-link-btn" href="#" onclick="openLink('https://ai.tradiepulse.com.au/v2/location/yUh1SHK3rPrLKuhijyj1/opportunities');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">1. CRM &amp; Pipeline</div>
-          <div class="modal-link-desc">Live CRM - every lead, every stage</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="swapModal('pillar-convert','branddocs');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">2. Company Profile &amp; Brand Kit</div>
-          <div class="modal-link-desc">Real client examples</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-      <a class="modal-link-btn" href="#" onclick="openLink('https://www.skool.com/tradiepulse-8644');return false">
-        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
-        <div class="modal-link-text">
-          <div class="modal-link-name">3. Skool + 6 Months Coaching</div>
-          <div class="modal-link-desc">Community and coaching included with Own it</div>
-        </div>
-        <div class="modal-link-arrow">→</div>
-      </a>
-    </div>
-  </div>
-</div>
 
 <!-- Landing Page Modal -->
 <div class="modal-overlay" id="modal-landing" onclick="closeModal('landing')">
@@ -820,8 +793,8 @@
       <a class="modal-link-btn" href="https://client-portal-production-58bf.up.railway.app/tools/blj-estimator.html" target="_blank">
         <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
         <div class="modal-link-text">
-          <div class="modal-link-name">BLJ Constructions - Decking, Concreting & Pergola</div>
-          <div class="modal-link-desc">Decking, concreting & pergola quote estimator</div>
+          <div class="modal-link-name">BLJ Constructions - Concreting</div>
+          <div class="modal-link-desc">Concreting quote estimator</div>
         </div>
         <div class="modal-link-arrow">→</div>
       </a>
@@ -870,7 +843,7 @@
     <div class="modal-sub">Two real client examples — scroll through each one below.</div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:4px">
       <div>
-        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#4ade80;margin-bottom:8px">Company Profile</div>
+        <div style="font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#5fc9a0;margin-bottom:8px">Company Profile</div>
         <div style="font-size:12px;font-weight:600;color:#f9fafb;margin-bottom:10px">Ontrac Construction</div>
         <iframe src="https://drive.google.com/file/d/1B08JdXAtO0_ubKL0GQ0mcn8gbDraofz_/preview" style="width:100%;height:480px;border:none;border-radius:10px;background:#1f2937" allow="autoplay"></iframe>
       </div>
@@ -1017,12 +990,13 @@ const slides = {
     eyebrow: 'Lead Filtering',
     title: 'LEAD QUALIFICATION',
     titleAccent: 'FORM',
-    tagline: 'A smart intake form that filters serious buyers from tyre kickers before they ever reach your inbox. You only talk to people who are actually ready.',
+    tagline: '',
+    formMock: true,
     points: [
-      { text: '<strong>Filters by budget, timeline & location.</strong> Anyone outside your criteria gets a polite rejection. You never waste time on leads you can\'t help.' },
-      { text: '<strong>Pre-qualifies intent.</strong> By the time a lead reaches you, they\'ve already told you their project size, timeline, and budget expectations.' },
-      { text: '<strong>Reduces wasted calls by 60-80%.</strong> No more hour-long calls with people who "just want a rough idea."' },
-      { text: '<strong>Integrated into your CRM.</strong> Qualified leads hit your pipeline instantly, unqualified leads are tagged and archived automatically.' },
+      { text: '<strong>Filters by budget, timeline and location</strong>' },
+      { text: '<strong>Pre-qualifies intent</strong>' },
+      { text: '<strong>Reduces calls by 60-80%</strong>' },
+      { text: '<strong>Integrated into your CRM</strong>' },
     ],
     action: { label: 'See the full flow', url: 'https://client-portal-production-58bf.up.railway.app/sales/lead-qualification-flow.html', type: 'green' },
     talking: [
@@ -1102,14 +1076,11 @@ function openLink(url) {
   window.open(url, '_blank');
 }
 
-function swapModal(from, to) {
-  closeModal(from);
-  showModal(to);
-}
-
-function goPillarSlide(from, key) {
-  closeModal(from);
-  showSlide(key);
+function toggleSec(key) {
+  const el = document.getElementById('sec-' + key);
+  const open = el.classList.contains('open');
+  document.querySelectorAll('.sec.open').forEach(e => e.classList.remove('open'));
+  if (!open) el.classList.add('open');
 }
 
 function showModal(type) {
@@ -1174,12 +1145,12 @@ function showSlide(key) {
       <div class="slide-tagline">${s.tagline}</div>
 
       <!-- AD TYPES -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">AD CREATIVE TYPES</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(31,138,99,0.2)">AD CREATIVE TYPES</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:24px">
 
         <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:28px;height:28px;border-radius:6px;background:rgba(22,163,74,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🎯</div>
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(31,138,99,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">🎯</div>
             <div style="font-size:12px;font-weight:700;color:#fff">Direct Response</div>
           </div>
           <div style="font-size:11px;color:var(--muted);line-height:1.5">Problem → Solution → CTA. Calls out a specific pain point and offers a clear next step. Best for urgent homeowner problems and tight service areas.</div>
@@ -1204,9 +1175,9 @@ function showSlide(key) {
           <div style="margin-top:8px;font-size:10px;color:#6b7280;font-style:italic">"Left: cracked patio. Right: exposed aggregate masterpiece."</div>
         </div>
 
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #a78bfa">
+        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #c9a96e">
           <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
-            <div style="width:28px;height:28px;border-radius:6px;background:rgba(167,139,250,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">⭐</div>
+            <div style="width:28px;height:28px;border-radius:6px;background:rgba(201,169,110,0.15);display:flex;align-items:center;justify-content:center;font-size:15px">⭐</div>
             <div style="font-size:12px;font-weight:700;color:#fff">Testimonials</div>
           </div>
           <div style="font-size:11px;color:var(--muted);line-height:1.5">Let happy clients do the talking. Builds instant trust and social proof. Works as video testimonial, quote card, or text overlay on a finished project photo.</div>
@@ -1216,13 +1187,13 @@ function showSlide(key) {
       </div>
 
       <!-- AD FORMATS -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">AD FORMATS</div>
+      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(31,138,99,0.2)">AD FORMATS</div>
       <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:24px">
 
         <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px">
           <div style="text-align:center;margin-bottom:10px">
             <div style="font-size:24px;margin-bottom:4px">🖼</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Static</div>
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:20px;color:var(--text);letter-spacing:1px">Static</div>
           </div>
           <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
           <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
@@ -1242,7 +1213,7 @@ function showSlide(key) {
         <div style="background:var(--dark3);border:1px solid rgba(96,165,250,0.25);border-radius:10px;padding:14px 16px">
           <div style="text-align:center;margin-bottom:10px">
             <div style="font-size:24px;margin-bottom:4px">🎴</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Carousel</div>
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:20px;color:var(--text);letter-spacing:1px">Carousel</div>
           </div>
           <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
           <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
@@ -1262,7 +1233,7 @@ function showSlide(key) {
         <div style="background:var(--dark3);border:1px solid rgba(249,115,22,0.25);border-radius:10px;padding:14px 16px">
           <div style="text-align:center;margin-bottom:10px">
             <div style="font-size:24px;margin-bottom:4px">🎬</div>
-            <div style="font-family:'Bebas Neue',sans-serif;font-size:20px;color:var(--text);letter-spacing:1px">Video</div>
+            <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:20px;color:var(--text);letter-spacing:1px">Video</div>
           </div>
           <div style="font-size:10px;font-weight:700;color:var(--green-light);letter-spacing:1px;margin-bottom:5px">PROS</div>
           <div style="display:flex;flex-direction:column;gap:3px;margin-bottom:10px">
@@ -1299,22 +1270,22 @@ function showSlide(key) {
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px;align-items:start">
 
         <!-- RENT IT -->
-        <div style="background:rgba(22,163,74,0.06);border:2px solid var(--green);border-radius:12px;padding:20px;position:relative;overflow:hidden">
+        <div style="background:rgba(31,138,99,0.06);border:2px solid var(--green);border-radius:12px;padding:20px;position:relative;overflow:hidden">
           <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)"></div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:3px;color:var(--green-light);line-height:1;margin-bottom:6px">RENT IT</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:var(--green-light)">$</span>2,000<span style="font-size:18px;color:var(--muted)"> /month</span></div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:34px;letter-spacing:3px;color:var(--green-light);line-height:1;margin-bottom:6px">RENT IT</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:var(--green-light)">$</span>2,000<span style="font-size:18px;color:var(--muted)"> /month</span></div>
           <div style="font-size:10px;color:var(--muted);margin-bottom:12px">Ongoing Meta ads management</div>
 
-          <div class="sys-gbox" style="background:rgba(22,163,74,0.1);border:2px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:12px">
+          <div class="sys-gbox" style="background:rgba(31,138,99,0.1);border:2px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:12px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-              <span style="font-size:18px;line-height:1">✅</span>
-              <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4ade80">30-Day Money-Back Guarantee</span>
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1px solid currentColor;font-size:11px;line-height:1">✓</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#5fc9a0">30-Day Money-Back Guarantee</span>
             </div>
-            <div style="font-size:11px;color:#bbf7d0;line-height:1.5;margin-bottom:4px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
-            <div style="font-size:11px;color:#86efac;line-height:1.5"><strong>Renews every month</strong> you're on Rent - a fresh 30-day guarantee each billing cycle.</div>
+            <div style="font-size:11px;color:#b7e4d0;line-height:1.5;margin-bottom:4px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
+            <div style="font-size:11px;color:#8fd3b4;line-height:1.5"><strong>Renews every month</strong> you're on Rent - a fresh 30-day guarantee each billing cycle.</div>
           </div>
 
-          <details class="sys-acc" open><summary><span>📦</span>WHAT'S INCLUDED<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+          <details class="sys-acc" open><summary><span style="color:var(--gold);font-size:9px">◆</span>WHAT'S INCLUDED<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
             <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);">Ads</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Ads managed and optimised</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Audience testing</div>
@@ -1322,20 +1293,20 @@ function showSlide(key) {
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Account fixed if payment drops</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Creative editing and design</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>New creatives every fortnight</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:6px;padding-top:6px;border-top:1px solid rgba(22,163,74,0.2)">CRM &amp; Follow-Up</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:6px;padding-top:6px;border-top:1px solid rgba(31,138,99,0.2)">CRM &amp; Follow-Up</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>CRM connected and maintained</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Automations kept running</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Landing page maintained</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>New automations or CRM builds</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>AI books appointments for you</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#6b7280;font-size:12px"><span style="color:#6b7280;flex-shrink:0">✗</span>AI answers your calls 24/7</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:6px;padding-top:6px;border-top:1px solid rgba(22,163,74,0.2)">Support</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:6px;padding-top:6px;border-top:1px solid rgba(31,138,99,0.2)">Support</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Email support</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Book a support call when needed</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Dedicated account manager</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Fortnightly check-in calls</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Monthly results report</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:6px;padding-top:6px;border-top:1px solid rgba(22,163,74,0.2)">Content &amp; Social</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--green);margin-top:6px;padding-top:6px;border-top:1px solid rgba(31,138,99,0.2)">Content &amp; Social</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#6b7280;font-size:12px"><span style="color:#6b7280;flex-shrink:0">✗</span>Monthly content shoot</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#6b7280;font-size:12px"><span style="color:#6b7280;flex-shrink:0">✗</span>Social media managed for you</div>
           </div></details>
@@ -1347,46 +1318,46 @@ function showSlide(key) {
         </div>
 
         <!-- OWN IT -->
-        <div style="background:rgba(168,85,247,0.04);border:1px solid rgba(168,85,247,0.35);border-radius:12px;padding:20px;position:relative;overflow:hidden">
-          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#16a34a,#a855f7)"></div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:3px;color:#c084fc;line-height:1;margin-bottom:6px">OWN IT</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:#c084fc">$</span>8,195</div>
+        <div style="background:rgba(201,169,110,0.04);border:1px solid rgba(201,169,110,0.35);border-radius:12px;padding:20px;position:relative;overflow:hidden">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#1f8a63,#c9a96e)"></div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:34px;letter-spacing:3px;color:#d9bd86;line-height:1;margin-bottom:6px">OWN IT</div>
+          <div style="font-family:'Cormorant Garamond',Georgia,serif;font-weight:600;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:#d9bd86">$</span>8,195</div>
           <div style="font-size:10px;color:var(--muted);margin-bottom:12px">Inc. GST — One-Time Payment</div>
 
-          <div class="sys-gbox" style="background:rgba(168,85,247,0.08);border:2px solid rgba(168,85,247,0.5);border-radius:10px;padding:14px 16px;margin-bottom:12px">
+          <div class="sys-gbox" style="background:rgba(201,169,110,0.08);border:2px solid rgba(201,169,110,0.5);border-radius:10px;padding:14px 16px;margin-bottom:12px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
-              <span style="font-size:18px;line-height:1">✅</span>
-              <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#d8b4fe">30-Day Money-Back Guarantee</span>
+              <span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:50%;border:1px solid currentColor;font-size:11px;line-height:1">✓</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#e3cc9f">30-Day Money-Back Guarantee</span>
             </div>
-            <div style="font-size:11px;color:#e9d5ff;line-height:1.5;margin-bottom:4px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
-            <div style="font-size:11px;color:#c4b5fd;line-height:1.5">Applies <strong>once</strong>, for 30 days from the day you go live. On Rent it renews every month.</div>
+            <div style="font-size:11px;color:#f1e6cf;line-height:1.5;margin-bottom:4px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
+            <div style="font-size:11px;color:#d6c08f;line-height:1.5">Applies <strong>once</strong>, for 30 days from the day you go live. On Rent it renews every month.</div>
           </div>
 
-          <details class="sys-acc" open><summary><span>📦</span>DELIVERABLES<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;">Pillar 1 — Attracting</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Targeting — fully handled</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Meta campaign — 4 ads (2 video + 2 static)</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Ad copy + editing — all handled</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Professional content shoot</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;margin-top:6px;padding-top:6px;border-top:1px solid rgba(168,85,247,0.2)">Pillar 2 — Qualifying</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Qualifying form</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Custom landing page</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Calendars connected + synced</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Bonus: quote estimator</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;margin-top:6px;padding-top:6px;border-top:1px solid rgba(168,85,247,0.2)">Pillar 3 — Converting</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Full CRM build + extra customisation — pipeline, automations &amp; phone number</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Company profile</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Brand kit</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Skool + 6 months of coaching</div>
+          <details class="sys-acc" open><summary><span style="color:var(--gold);font-size:9px">◆</span>DELIVERABLES<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c9a96e;">Pillar 1 — Attracting</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Targeting — fully handled</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Meta campaign — 4 ads (2 video + 2 static)</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Ad copy + editing — all handled</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Professional content shoot</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c9a96e;margin-top:6px;padding-top:6px;border-top:1px solid rgba(201,169,110,0.2)">Pillar 2 — Qualifying</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Qualifying form</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Custom landing page</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Calendars connected + synced</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Bonus: quote estimator</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#c9a96e;margin-top:6px;padding-top:6px;border-top:1px solid rgba(201,169,110,0.2)">Pillar 3 — Converting</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Full CRM build + extra customisation — pipeline, automations &amp; phone number</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Company profile</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Brand kit</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Skool + 6 months of coaching</div>
           </div></details>
-          <details class="sys-acc" open><summary><span>🛡️</span>SUPPORT<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>6 months of coaching</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>1-on-1 onboarding call</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Daily group calls</div>
+          <details class="sys-acc" open><summary><span style="color:var(--gold);font-size:9px">◆</span>SUPPORT<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>6 months of coaching</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>1-on-1 onboarding call</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#f1e6cf;font-size:12px"><span style="color:#d9bd86;flex-shrink:0">✓</span>Daily group calls</div>
           </div></details>
-          <details class="sys-acc" open><summary><span>⏱️</span>TIMELINE + BONUS<span class="acc-arrow">›</span></summary><div class="acc-body">
+          <details class="sys-acc" open><summary><span style="color:var(--gold);font-size:9px">◆</span>TIMELINE + BONUS<span class="acc-arrow">›</span></summary><div class="acc-body">
             <div style="font-size:12px;color:#9ca3af;line-height:1.5;margin-bottom:8px">3–7 business days from onboarding to ads live.</div>
-            <div style="display:flex;gap:8px;align-items:center"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e9d5ff">First month of CRM — $197 value</span></div>
+            <div style="display:flex;gap:8px;align-items:center"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#f1e6cf">First month of CRM — $197 value</span></div>
           </div></details>
         </div>
 
@@ -1411,11 +1382,22 @@ function showSlide(key) {
       </div>
     ` : '';
 
+    const formHTML = s.formMock ? `<div class="lf-card">
+          <div class="lf-tag">Example lead form</div>
+          <div class="lf-title">Get Your Free Quote</div>
+          <div class="lf-sub">Takes 60 seconds. We'll call you within 24 hours.</div>
+          <div class="lf-row"><div class="lf-f"><label>Full name</label><div class="lf-i">Jane Smith</div></div><div class="lf-f"><label>Mobile</label><div class="lf-i">04XX XXX XXX</div></div></div>
+          <div class="lf-f"><label>Suburb / postcode</label><div class="lf-i">Castle Hill, 2154</div></div>
+          <div class="lf-f"><label>What do you need done?</label><div class="lf-i lf-sel">Deck &amp; pergola</div></div>
+          <div class="lf-row"><div class="lf-f"><label>Budget</label><div class="lf-i lf-sel">$15,000 - $25,000</div></div><div class="lf-f"><label>Timeline</label><div class="lf-i lf-sel">Within 1-3 months</div></div></div>
+          <div class="lf-f"><label>Anything we should know?</label><div class="lf-i lf-ta">Existing slab, looking for merbau with a covered section...</div></div>
+          <div class="lf-btn">Request My Quote</div>
+        </div>` : '';
     document.getElementById('slideContent').innerHTML = `
       <div class="slide-eyebrow">${s.eyebrow}</div>
       <div class="slide-title">${s.title} <span>${s.titleAccent}</span></div>
-      <div class="slide-tagline">${s.tagline}</div>
-      <div class="slide-points">${pointsHTML}</div>
+      ${s.tagline ? `<div class="slide-tagline">${s.tagline}</div>` : ''}
+      ${s.formMock ? `<div class="qual-split"><div class="slide-points">${pointsHTML}</div>${formHTML}</div>` : `<div class="slide-points">${pointsHTML}</div>`}
       ${galleryHTML}
     `;
   }
@@ -1452,12 +1434,12 @@ function setPrice(tier) {
   if (tier === '3200') {
     display.innerHTML = '<span>$</span>3,520';
     btn3200.style.border = '2px solid var(--green)';
-    btn3200.style.background = 'rgba(22,163,74,0.12)';
+    btn3200.style.background = 'rgba(31,138,99,0.12)';
     btn3200.style.color = 'var(--green-light)';
   } else {
     display.innerHTML = '<span>$</span>4,950';
     btn4500.style.border = '2px solid var(--green)';
-    btn4500.style.background = 'rgba(22,163,74,0.12)';
+    btn4500.style.background = 'rgba(31,138,99,0.12)';
     btn4500.style.color = 'var(--green-light)';
   }
   // Reveal price

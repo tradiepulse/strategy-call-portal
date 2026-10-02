@@ -158,6 +158,11 @@
   .tile.span3 {
     grid-column: span 3;
   }
+  .tile.span2 {
+    grid-column: span 2;
+  }
+  .tile.pillar .tile-name { font-size: 18px; }
+  .tile-sub { font-size: 11px; color: var(--muted); margin-top: 2px; line-height: 1.5; }
 
   .tile {
     position: relative;
@@ -608,98 +613,149 @@
 
   <div class="home-tiles">
 
-    <!-- Row 1: Live Tools -->
-    <div class="tile external" onclick="openLink('https://adsmanager.facebook.com/adsmanager/reporting/business_view?act=1345893057155434&ads_manager_write_regions=true&business_id=364803359285803&event_source=AUTO_REDIRECT')">
-      <span class="tile-badge live">Live Tool</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
-      </div>
-      <div class="tile-name">Meta Ads</div>
+<!-- Three pillars -->
+    <div class="tile demo pillar" onclick="showModal('pillar-attract')">
+      <span class="tile-badge demo">Pillar 1</span>
+      <div class="tile-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg></div>
+      <div class="tile-name">Attraction / Targeting</div>
+      <div class="tile-sub">Targeting checker · Ad creatives · Meta ads</div>
     </div>
 
-    <div class="tile yellow" onclick="openLink('https://ai.tradiepulse.com.au/v2/location/yUh1SHK3rPrLKuhijyj1/opportunities')">
-      <span class="tile-badge live-yellow">Live Tool</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-      </div>
-      <div class="tile-name">CRM & Pipeline</div>
+    <div class="tile demo pillar" onclick="showModal('pillar-qualify')">
+      <span class="tile-badge demo">Pillar 2</span>
+      <div class="tile-icon"><svg viewBox="0 0 24 24"><polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"/></svg></div>
+      <div class="tile-name">Qualifying</div>
+      <div class="tile-sub">Landing page · Calendar page · Quote estimator</div>
     </div>
 
-    <div class="tile demo" onclick="showSlide('adideas')">
-      <span class="tile-badge demo">Examples</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-      </div>
-      <div class="tile-name">Ad Creatives</div>
+    <div class="tile demo pillar" onclick="showModal('pillar-convert')">
+      <span class="tile-badge demo">Pillar 3</span>
+      <div class="tile-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+      <div class="tile-name">Converting</div>
+      <div class="tile-sub">CRM · Company profile · Brand kit</div>
     </div>
 
-    <!-- Row 2 -->
-    <div class="tile demo" onclick="showModal('landing')">
-      <span class="tile-badge demo">Examples</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
-      </div>
-      <div class="tile-name">Landing Page</div>
-    </div>
-
-
-
-    <div class="tile demo" onclick="showModal('estimator')">
-      <span class="tile-badge demo">Examples</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-      </div>
-      <div class="tile-name">Quote Estimator</div>
-    </div>
-
-    <div class="tile demo" onclick="showModal('branddocs')">
-      <span class="tile-badge demo">Examples</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-      </div>
-      <div class="tile-name">Brand Kit &amp; Capability</div>
-    </div>
-
-    <!-- Row 3 -->
-    <div class="tile external" onclick="openLink('https://approvals.tradiepulse.org/sales/targeting-map.html')">
-      <span class="tile-badge live">Live Tool</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg>
-      </div>
-      <div class="tile-name">Targeting</div>
-    </div>
-
-    <div class="tile demo" onclick="showSlide('content')">
-      <span class="tile-badge demo">Slide</span>
-      <div class="tile-icon">
-        <svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg>
-      </div>
-      <div class="tile-name">Content Shoot</div>
-    </div>
-
+    <!-- Add-on -->
     <div class="tile skool" onclick="openLink('https://www.skool.com/tradiepulse-8644')">
-      <span class="tile-badge" style="background:rgba(124,58,237,0.15);color:#c4b5fd;border:1px solid rgba(124,58,237,0.3);">Community</span>
+      <span class="tile-badge" style="background:rgba(124,58,237,0.15);color:#c4b5fd;border:1px solid rgba(124,58,237,0.3);">Add-on</span>
       <div class="tile-icon">
         <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       </div>
-      <div class="tile-name">Skool</div>
+      <div class="tile-name">Skool + 6 Months Coaching</div>
     </div>
 
-
-
-    <!-- Our System full width -->
-    <div class="tile demo span3" onclick="showSlide('system')">
+    <!-- Our System -->
+    <div class="tile demo span2" onclick="showSlide('system')">
       <span class="tile-badge demo">Our System</span>
       <div class="tile-icon">
         <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
       </div>
       <div class="tile-name">Our System</div>
+      <div class="tile-sub">Rent it or Own it</div>
     </div>
 
   </div>
 </div>
 
 <!-- ══════════ MODALS ══════════ -->
+
+<!-- Pillar hubs -->
+<div class="modal-overlay" id="modal-pillar-attract" onclick="closeModal('pillar-attract')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('pillar-attract')">×</button>
+    <div class="modal-eyebrow">Pillar 1</div>
+    <div class="modal-title">ATTRACTION / TARGETING</div>
+    <div class="modal-sub">Get in front of the right homeowners in your area.</div>
+    <div class="modal-links">
+      <a class="modal-link-btn" href="#" onclick="openLink('https://approvals.tradiepulse.org/sales/targeting-map.html');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><polygon points="3 11 22 2 13 21 11 13 3 11"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Targeting Checker</div>
+          <div class="modal-link-desc">Live tool - see exactly who we target</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="#" onclick="goPillarSlide('pillar-attract','adideas');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M23 7l-7 5 7 5V7z"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Ad Creatives</div>
+          <div class="modal-link-desc">Examples, formats and what we build for tradies</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="#" onclick="openLink('https://adsmanager.facebook.com/adsmanager/reporting/business_view?act=1345893057155434&ads_manager_write_regions=true&business_id=364803359285803&event_source=AUTO_REDIRECT');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Meta Ads</div>
+          <div class="modal-link-desc">Live ad account - campaigns, spend and results</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-pillar-qualify" onclick="closeModal('pillar-qualify')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('pillar-qualify')">×</button>
+    <div class="modal-eyebrow">Pillar 2</div>
+    <div class="modal-title">QUALIFYING</div>
+    <div class="modal-sub">Turn clicks into qualified, budget-ready enquiries.</div>
+    <div class="modal-links">
+      <a class="modal-link-btn" href="#" onclick="swapModal('pillar-qualify','landing');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Landing Page</div>
+          <div class="modal-link-desc">Live client landing pages</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="#" onclick="openLink('https://tradiepulse.com.au/booking-page');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Calendar Page</div>
+          <div class="modal-link-desc">Booking calendar example</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="#" onclick="swapModal('pillar-qualify','estimator');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Quote Estimator</div>
+          <div class="modal-link-desc">Interactive estimators that pre-qualify budget</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="modal-pillar-convert" onclick="closeModal('pillar-convert')">
+  <div class="modal-box" onclick="event.stopPropagation()">
+    <button class="modal-close" onclick="closeModal('pillar-convert')">×</button>
+    <div class="modal-eyebrow">Pillar 3</div>
+    <div class="modal-title">CONVERTING</div>
+    <div class="modal-sub">Follow up, look the part and close the job.</div>
+    <div class="modal-links">
+      <a class="modal-link-btn" href="#" onclick="openLink('https://ai.tradiepulse.com.au/v2/location/yUh1SHK3rPrLKuhijyj1/opportunities');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">CRM &amp; Pipeline</div>
+          <div class="modal-link-desc">Live CRM - every lead, every stage</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="#" onclick="swapModal('pillar-convert','branddocs');return false">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Company Profile &amp; Brand Kit</div>
+          <div class="modal-link-desc">Real client examples</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+    </div>
+  </div>
+</div>
 
 <!-- Landing Page Modal -->
 <div class="modal-overlay" id="modal-landing" onclick="closeModal('landing')">
@@ -766,6 +822,14 @@
         <div class="modal-link-text">
           <div class="modal-link-name">Decking & Pergola Estimator</div>
           <div class="modal-link-desc">Interactive decking & pergola quote tool</div>
+        </div>
+        <div class="modal-link-arrow">→</div>
+      </a>
+      <a class="modal-link-btn" href="https://client-portal-production-58bf.up.railway.app/tools/flowcrete.html" target="_blank">
+        <div class="modal-link-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+        <div class="modal-link-text">
+          <div class="modal-link-name">Flowcrete - Driveways, Slabs & Footpaths</div>
+          <div class="modal-link-desc">Concrete driveway, slab, footpath & retaining wall estimator</div>
         </div>
         <div class="modal-link-arrow">→</div>
       </a>
@@ -989,7 +1053,7 @@ const slides = {
     eyebrow: 'Ad Creatives',
     title: 'AD',
     titleAccent: 'CREATIVES',
-    tagline: 'Real client ad examples, creative types, formats, hooks & proven results — the full creative playbook for tradies.'
+    tagline: 'Real client ad examples, creative types and formats — the creative playbook for tradies.'
   },
   system: {
     order: 4,
@@ -1006,32 +1070,21 @@ const slides = {
   }
 };
 
-const hookTemplates = [
-  {
-    label: 'Template 1 - Pain Interrupt',
-    template: "If you're experiencing [pain point], pay attention...",
-    example: `e.g. "If you're experiencing a dry run of leads despite spending on ads, pay attention..."`,
-    tip: 'Broad call-out. Works when the pain is universal to the trade.'
-  },
-  {
-    label: 'Template 2 - Most Are Failing',
-    template: "Most [trade] are [pain point of potential client] because...",
-    example: `e.g. "Most builders are losing $40K+ a year in missed enquiries because their follow-up system doesn't exist..."`,
-    tip: 'Creates curiosity + positions you as the one who knows why. Add the insight after "because".'
-  },
-  {
-    label: 'Template 3 - The Real Reason',
-    template: "The reason you [pain point] is...",
-    example: `e.g. "The reason you're getting leads but not bookings isn't your price - it's your response time..."`,
-    tip: 'Challenges assumptions. Best paired with a counter-intuitive insight after "is".'
-  }
-];
-
 const slideOrder = ['content','qualify','checkins','adideas','system'];
 let currentSlide = 'content';
 
 function openLink(url) {
   window.open(url, '_blank');
+}
+
+function swapModal(from, to) {
+  closeModal(from);
+  showModal(to);
+}
+
+function goPillarSlide(from, key) {
+  closeModal(from);
+  showSlide(key);
 }
 
 function showModal(type) {
@@ -1056,6 +1109,7 @@ function goHome() {
 }
 
 function showSlide(key) {
+  document.querySelectorAll('.modal-overlay.active').forEach(m => m.classList.remove('active'));
   // Reset price reveal whenever slide changes
   const pd = document.getElementById('pricing-display');
   if (pd) { pd.style.filter = 'blur(12px)'; pd.style.userSelect = 'none'; pd.innerHTML = '<span>$</span>&#8212;&#8212;&#8212;'; }
@@ -1201,151 +1255,6 @@ function showSlide(key) {
 
       </div>
 
-      <!-- HOOKS -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:8px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">HOOKS - STOP THE SCROLL</div>
-      <div style="background:rgba(22,163,74,0.04);border:1px solid rgba(22,163,74,0.15);border-radius:8px;padding:12px 16px;margin-bottom:14px;font-size:11.5px;color:var(--muted);line-height:1.7">
-        A hook does two things: <strong style="color:#e5e7eb">call out the avatar</strong> (who specifically you're talking to) and <strong style="color:#e5e7eb">call out the pain point</strong> (what they're struggling with right now). When someone sees themselves in the first line - they stop scrolling. Everything after that is just closing the deal.
-      </div>
-      <div style="display:flex;flex-direction:column;gap:8px">
-        ${hookTemplates.map((h, i) => `
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:8px;padding:12px 14px;display:flex;align-items:flex-start;gap:12px">
-          <div style="flex:1">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);margin-bottom:5px">${h.label}</div>
-            <div style="font-size:13px;color:#f9fafb;font-style:italic;line-height:1.5;margin-bottom:6px">"${h.template}"</div>
-            <div style="font-size:10.5px;color:#6b7280;margin-bottom:4px">${h.example}</div>
-            <div style="font-size:10px;color:rgba(22,163,74,0.7);font-style:italic">${h.tip}</div>
-          </div>
-          <button onclick="copyHook(${i})" id="hook-btn-${i}" style="background:rgba(22,163,74,0.1);border:1px solid rgba(22,163,74,0.25);border-radius:6px;padding:7px 14px;color:var(--green-light);font-size:10px;font-weight:700;cursor:pointer;white-space:nowrap;font-family:'Inter',sans-serif;flex-shrink:0;transition:all 0.15s">Copy</button>
-        </div>
-        `).join('')}
-      </div>
-
-      <!-- REAL RESULTS GALLERY -->
-      <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-top:28px;margin-bottom:12px;padding-bottom:6px;border-bottom:1px solid rgba(22,163,74,0.2)">REAL CLIENT RESULTS - 90 DAYS LIVE</div>
-      <div style="font-size:11px;color:var(--muted);margin-bottom:16px">Actual campaigns across active Tradie Pulse clients. Spend, approach, and enquiries over 90 days.</div>
-      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #a78bfa">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(124,58,237,0.15);color:#c4b5fd;border:1px solid rgba(124,58,237,0.3);border-radius:20px;padding:2px 8px">Gates &amp; Fencing</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Titan Gates - QLD</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Showcase</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Brand intro video showing custom aluminium gate builds. Led with quality craftsmanship and local Gold Coast manufacturing. CTA: Get Quote.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,599</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">293</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$5.46</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.15);color:var(--green-light);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:2px 8px">Landscaping</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Absolute Landscape - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Lifestyle hook - "Work. Train. Relax. At Home." Targeted homeowners wanting a private outdoor retreat. Granny flat and tiny house builds. Fast turnaround CTA.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,161</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">113</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$10.27</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fb923c">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);border-radius:20px;padding:2px 8px">Builder</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(148,163,184,0.12);color:#cbd5e1;border:1px solid rgba(148,163,184,0.25);border-radius:20px;padding:2px 8px">Static</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Empre Constructions - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Clear price anchor - "Granny Flats from $170K." Image of a finished granny flat. Immediate offer, no fluff. Targeted Sydney homeowners with existing land.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$766</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">55</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$13.93</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fb923c">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(249,115,22,0.15);color:#fb923c;border:1px solid rgba(249,115,22,0.3);border-radius:20px;padding:2px 8px">Concreting</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Empre Constructions - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Showcase</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Timelapse video of a full driveway install - start to finish in under 30 seconds. Let the craft sell itself. Driveways, slabs, footpaths & exposed aggregate. Premium positioning.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,660</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">186</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$8.92</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #7dd3fc">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(56,189,248,0.15);color:#7dd3fc;border:1px solid rgba(56,189,248,0.3);border-radius:20px;padding:2px 8px">Car Detailing</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">Video</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Ocean Glow Detailing - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Showcase</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Quality positioning over price - "Lasting Gloss, Not Quick Shine." Brand intro video highlighting finish quality. Targeted car enthusiasts in Sydney metro.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$578</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">199</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$2.90</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fcd34d">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(245,158,11,0.15);color:#fcd34d;border:1px solid rgba(245,158,11,0.3);border-radius:20px;padding:2px 8px">Concreting</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.12);color:var(--green-light);border:1px solid rgba(22,163,74,0.25);border-radius:20px;padding:2px 8px">GIF / Video</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">BLJ Concrete - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Pain hook GIF - "Need a New Driveway or Footpath?" Animated before/after loop. Short, punchy copy. Driveways, footpaths & decorative concrete. Targeted homeowners in Western Sydney.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,067</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">143</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$7.46</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid #fde047">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(250,204,21,0.15);color:#fde047;border:1px solid rgba(250,204,21,0.3);border-radius:20px;padding:2px 8px">Electrical</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(148,163,184,0.12);color:#cbd5e1;border:1px solid rgba(148,163,184,0.25);border-radius:20px;padding:2px 8px">Static</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">BTG Electrical - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Direct Response</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Specific offer with a hard price - "Ceiling Fan Installs from $400." Clean product image. No fluff, straight to the CTA. High-ticket lead, low cost per install booked.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,461</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">19</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$76.89</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-        <div style="background:var(--dark3);border:1px solid var(--border);border-radius:10px;padding:14px 16px;border-left:3px solid var(--green)">
-          <div style="display:flex;align-items:center;gap:6px;margin-bottom:10px">
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(22,163,74,0.15);color:var(--green-light);border:1px solid rgba(22,163,74,0.3);border-radius:20px;padding:2px 8px">Carpentry</div>
-            <div style="font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;background:rgba(148,163,184,0.12);color:#cbd5e1;border:1px solid rgba(148,163,184,0.25);border-radius:20px;padding:2px 8px">Static</div>
-          </div>
-          <div style="font-size:12px;font-weight:700;color:#fff;margin-bottom:2px">Elevate Carpentry - NSW</div>
-          <div style="font-size:10px;font-weight:600;color:#fcd34d;margin-bottom:6px">Before &amp; After</div>
-          <div style="font-size:10.5px;color:var(--muted);line-height:1.5;margin-bottom:12px">Local authority positioning - "The Hawkesbury's deck and pergola team." Called out the suburb, team size (8 carpenters), and included a $500 on-time guarantee. High-trust, area-specific.</div>
-          <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;border-top:1px solid var(--border);padding-top:10px">
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fff">$1,320</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Spent</div></div>
-            <div style="text-align:center;border-left:1px solid var(--border);border-right:1px solid var(--border)"><div style="font-size:15px;font-weight:700;color:var(--green-light)">27</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Leads</div></div>
-            <div style="text-align:center"><div style="font-size:15px;font-weight:700;color:#fcd34d">$48.91</div><div style="font-size:8px;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-top:2px">Per Lead</div></div>
-          </div>
-        </div>
-
-      </div>
     `;
     document.getElementById('slideAction').style.display = 'flex';
     document.getElementById('slideAction').innerHTML = `
@@ -1365,71 +1274,72 @@ function showSlide(key) {
       <div class="slide-title">${s.title} <span>${s.titleAccent}</span></div>
       <div class="slide-tagline">${s.tagline}</div>
 
-      <!-- 2-TIER PRICING TABLE -->
+      <!-- 2-OPTION PRICING TABLE -->
       <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:16px">
 
-        <!-- DONE WITH YOU (MOST POPULAR) -->
+        <!-- RENT IT -->
         <div style="background:rgba(22,163,74,0.06);border:2px solid var(--green);border-radius:12px;padding:20px;position:relative;overflow:hidden">
           <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--green)"></div>
-          <div style="position:absolute;top:11px;right:11px;background:var(--green);color:#fff;font-size:8px;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:3px 8px;border-radius:20px">MOST POPULAR</div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px">DONE WITH YOU</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:var(--green-light)">$</span>4,950</div>
-          <div style="font-size:10px;color:var(--muted);margin-bottom:8px">Inc. GST — One-Time Payment</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--green);margin-bottom:6px">RENT IT</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:var(--green-light)">$</span>2,000<span style="font-size:18px;color:var(--muted)"> /month</span></div>
+          <div style="font-size:10px;color:var(--muted);margin-bottom:8px">Ongoing Meta ads management</div>
 
-          <div style="background:rgba(22,163,74,0.1);border:2px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+          <div style="background:rgba(22,163,74,0.1);border:2px solid var(--green);border-radius:10px;padding:14px 16px;margin-bottom:12px">
             <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
               <span style="font-size:18px;line-height:1">✅</span>
               <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#4ade80">30-Day Enquiry Guarantee</span>
             </div>
-            <div style="font-size:11px;color:#bbf7d0;line-height:1.5;margin-bottom:2px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
-
+            <div style="font-size:11px;color:#bbf7d0;line-height:1.5;margin-bottom:4px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
+            <div style="font-size:11px;color:#86efac;line-height:1.5"><strong>Renews every month</strong> you're on Rent - a fresh 30-day guarantee each billing cycle.</div>
           </div>
 
-          <details class="sys-acc"><summary><span>📦</span>DELIVERABLES<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Full CRM build — pipeline, automations & phone number</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Calendars connected + synced</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Skool — 6 months access</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Meta campaign — 1 video + 1 static ad</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Copy, editing + targeting — all handled</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Qualifying form + brand kit + company profile</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Custom landing page</div>
-          </div></details>
-          <details class="sys-acc"><summary><span>🛡️</span>SUPPORT<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>1-on-1 onboarding call + screen share</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e5e7eb;font-size:12px"><span style="color:var(--green-light);flex-shrink:0">✓</span>Client portal + daily group calls</div>
-          </div></details>
-          <details class="sys-acc"><summary style="color:#6b7280"><span>–</span>NOT INCLUDED<span class="acc-arrow">›</span></summary><div class="acc-body"><div style="font-size:11px;color:#6b7280;line-height:1.8">Content shoot · AI booking bot · Dedicated account manager</div></div></details>
-          <details class="sys-acc"><summary><span>⏱️</span>TIMELINE + BONUS<span class="acc-arrow">›</span></summary><div class="acc-body">
-            <div style="font-size:12px;color:#9ca3af;line-height:1.5;margin-bottom:8px">10–14 business days from onboarding to ads live.</div>
-            <div style="display:flex;gap:8px;align-items:center"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e5e7eb">First month of CRM — $197 value</span></div>
-          </div></details>
-
-
+          <div style="font-size:12px;color:#9ca3af;line-height:1.6;margin-bottom:14px">Everything included in the monthly management offer is laid out on the order page.</div>
+          <button class="btn btn-green" style="width:100%;justify-content:center" onclick="openLink('https://tradiepulse.com.au/order-page-meta-ads-mgt')">
+            See full details &amp; get started
+            <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
 
-        <!-- DONE FOR YOU -->
+        <!-- OWN IT -->
         <div style="background:rgba(168,85,247,0.04);border:1px solid rgba(168,85,247,0.35);border-radius:12px;padding:20px;position:relative;overflow:hidden">
           <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#16a34a,#a855f7)"></div>
-          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c084fc;margin-bottom:6px">DONE FOR YOU</div>
-          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:#c084fc">$</span>7,450</div>
+          <div style="font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#c084fc;margin-bottom:6px">OWN IT</div>
+          <div style="font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--text);line-height:1;margin-bottom:2px"><span style="font-size:20px;color:#c084fc">$</span>8,195</div>
           <div style="font-size:10px;color:var(--muted);margin-bottom:8px">Inc. GST — One-Time Payment</div>
 
           <div style="font-size:13px;font-weight:700;color:#e9d5ff;margin-bottom:12px;padding:8px 12px;background:rgba(168,85,247,0.06);border-radius:6px;border-left:3px solid rgba(168,85,247,0.6)">⏱ Ads live 3–7 business days from onboarding call</div>
 
+          <div style="background:rgba(168,85,247,0.08);border:2px solid rgba(168,85,247,0.5);border-radius:10px;padding:14px 16px;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px">
+              <span style="font-size:18px;line-height:1">✅</span>
+              <span style="font-size:11px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:#d8b4fe">30-Day Enquiry Guarantee</span>
+            </div>
+            <div style="font-size:11px;color:#e9d5ff;line-height:1.5;margin-bottom:4px"><strong>Money back if you don't get a qualified enquiry.</strong></div>
+            <div style="font-size:11px;color:#c4b5fd;line-height:1.5">Applies <strong>once</strong>, for 30 days from the day you go live. On Rent it renews every month.</div>
+          </div>
+
           <details class="sys-acc"><summary><span>📦</span>DELIVERABLES<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Full CRM build + extra customisation</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Calendars connected + synced</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Skool — 6 months access</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;">Pillar 1 — Attraction / Targeting</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Targeting — fully handled</div>
             <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Meta campaign — 4 ads (2 video + 2 static)</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Professional content shoot (Sydney)</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Custom landing page + quote estimator</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>AI booking bot — 25% more bookings</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Brand kit + company profile</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Ad copy + editing — all handled</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Professional content shoot</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;margin-top:6px;padding-top:6px;border-top:1px solid rgba(168,85,247,0.2)">Pillar 2 — Qualifying</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Custom landing page</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Quote estimator</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Qualifying form</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Calendars connected + synced</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;margin-top:6px;padding-top:6px;border-top:1px solid rgba(168,85,247,0.2)">Pillar 3 — Converting</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Full CRM build + extra customisation — pipeline, automations &amp; phone number</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Company profile</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Brand kit</div>
+            <div style="font-size:9px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#a78bfa;margin-top:6px;padding-top:6px;border-top:1px solid rgba(168,85,247,0.2)">Add-on</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>6 months of coaching</div>
           </div></details>
           <details class="sys-acc"><summary><span>🛡️</span>SUPPORT<span class="acc-arrow">›</span></summary><div class="acc-body" style="display:flex;flex-direction:column;gap:7px">
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Dedicated 1-on-1 client manager</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Fortnightly creative check-ins</div>
-            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Onboarding call + client portal + group calls</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>6 months of coaching</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>1-on-1 onboarding call</div>
+            <div style="display:flex;gap:8px;align-items:flex-start;color:#e9d5ff;font-size:12px"><span style="color:#c084fc;flex-shrink:0">✓</span>Daily group calls</div>
           </div></details>
           <details class="sys-acc"><summary style="color:#6b7280"><span>–</span>NOT INCLUDED<span class="acc-arrow">›</span></summary><div class="acc-body"><div style="font-size:11px;color:#6b7280;line-height:1.8">Ongoing monthly management · Paid ad spend</div></div></details>
           <details class="sys-acc"><summary><span>⏱️</span>TIMELINE + BONUS<span class="acc-arrow">›</span></summary><div class="acc-body">
@@ -1437,8 +1347,6 @@ function showSlide(key) {
             <div style="display:flex;gap:8px;align-items:center;margin-bottom:5px"><span style="background:var(--green);color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e9d5ff">First month of CRM — $197 value</span></div>
             <div style="display:flex;gap:8px;align-items:center"><span style="background:#7c3aed;color:#fff;font-size:8px;font-weight:700;padding:2px 7px;border-radius:4px;flex-shrink:0">FREE</span><span style="font-size:12px;color:#e9d5ff">First month of management — $2,000 value</span></div>
           </div></details>
-
-
         </div>
 
       </div>
@@ -1535,23 +1443,6 @@ function setPrice(tier) {
       check.style.background = '';
       check.style.color = '';
     }
-  });
-}
-
-function copyHook(idx) {
-  const h = hookTemplates[idx];
-  const btn = document.getElementById('hook-btn-' + idx);
-  navigator.clipboard.writeText(h.template).then(() => {
-    btn.textContent = 'Copied ✓';
-    btn.style.background = 'rgba(22,163,74,0.25)';
-    btn.style.borderColor = 'var(--green)';
-    btn.style.color = '#4ade80';
-    setTimeout(() => {
-      btn.textContent = 'Copy';
-      btn.style.background = 'rgba(22,163,74,0.1)';
-      btn.style.borderColor = 'rgba(22,163,74,0.25)';
-      btn.style.color = 'var(--green-light)';
-    }, 2200);
   });
 }
 
